@@ -4,7 +4,7 @@
 
 ## Contributing
 
-* [DEV](DEV.md)
+* [Development Environment](DEV.md)
 
 ## Copyright & License
 
