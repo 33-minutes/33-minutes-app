@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`app renders app 1`] = `
+exports[`main toggle start meeting 1`] = `
 <View
   style={
     Object {
@@ -105,7 +105,7 @@ exports[`app renders app 1`] = `
             ]
           }
         >
-          Start Meeting
+          Stop Meeting
         </Text>
       </View>
     </View>

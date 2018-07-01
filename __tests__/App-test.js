@@ -10,19 +10,5 @@ describe('app', () => {
         const rendered = app.toJSON();
         expect(rendered).toMatchSnapshot()
     });
-
-    describe('toggle', () => {
-        it('start meeting', () => { 
-            app.getInstance().toggleMeeting();
-            const rendered = app.toJSON();
-            expect(rendered).toMatchSnapshot()
-        });
-    
-        it('stop meeting', () => { 
-            app.getInstance().toggleMeeting();
-            const rendered = app.toJSON();
-            expect(rendered).toMatchSnapshot()
-        });    
-    })
 })
 
