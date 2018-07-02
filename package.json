@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "react-native-scripts": "1.14.0",
+    "jest": "^23.0.0-charlie.4",
     "jest-expo": "~27.0.0",
+    "react-native-scripts": "1.14.0",
     "react-test-renderer": "16.4.1"
   },
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
@@ -20,7 +21,11 @@
   },
   "dependencies": {
     "expo": "^27.0.1",
+    "moment": "^2.22.2",
+    "moment-duration-format": "^2.2.2",
     "react": "16.4.1",
-    "react-native": "~0.55.2"
+    "react-native": "~0.55.2",
+    "react-native-hideable-view": "github:osagie/react-native-hideable-view",
+    "react-timer-machine": "^1.0.1"
   }
 }

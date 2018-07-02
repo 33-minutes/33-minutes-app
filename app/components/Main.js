@@ -2,6 +2,13 @@ import React from 'react';
 import { StyleSheet, Text, View, Button, ScrollView } from 'react-native';
 import Meeting from './Meeting'
 
+import HideableView from 'react-native-hideable-view';
+
+import TimerMachine from 'react-timer-machine'
+import moment from "moment";
+import momentDurationFormatSetup from "moment-duration-format";
+momentDurationFormatSetup(moment);
+
 export default class Main extends React.Component {
   constructor(props) {
     super(props)
@@ -52,6 +59,21 @@ export default class Main extends React.Component {
         <ScrollView style={styles.scrollContainer}>
           { meetings }
         </ScrollView>
+        
+        <HideableView visible={this.state.isMeetingStarted} style={styles.timer}>
+          <Text style={styles.timerText}>
+            <TimerMachine
+              timeStart={1000}
+              started={this.state.isMeetingStarted}
+              countdown={false}
+              interval={1000}
+              formatTimer={(time, ms) =>
+                moment.duration(ms, "milliseconds").format("h [hours], m [minutes], s [seconds]")
+              }
+              >
+            </TimerMachine>
+          </Text>
+        </HideableView>
 
         <View style={styles.actions}>
           <Button
@@ -59,7 +81,6 @@ export default class Main extends React.Component {
             title={ this.state.isMeetingStarted ? 'Stop Meeting' : 'Start Meeting' }>
           </Button>
         </View>
-
       </View>
     );
   }
@@ -84,6 +105,13 @@ const styles = StyleSheet.create({
   scrollContainer: {
     flex: 1,
     marginBottom: 100
+  },
+  timer: {
+    alignItems: 'center',
+    height: 50
+  },
+  timerText: {
+    fontSize: 24
   },
   actions: {
     borderTopWidth: 1,

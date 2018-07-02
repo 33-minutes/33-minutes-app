@@ -47,6 +47,28 @@ exports[`app renders app 1`] = `
   <View
     style={
       Object {
+        "alignItems": "center",
+        "height": 50,
+        "opacity": 0,
+      }
+    }
+  >
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      style={
+        Object {
+          "fontSize": 24,
+        }
+      }
+    >
+      1 second
+    </Text>
+  </View>
+  <View
+    style={
+      Object {
         "borderTopWidth": 1,
         "marginTop": 10,
         "padding": 50,
@@ -55,19 +77,13 @@ exports[`app renders app 1`] = `
   >
     <View
       accessibilityComponentType="button"
-      accessibilityLabel={undefined}
       accessibilityTraits={
         Array [
           "button",
         ]
       }
       accessible={true}
-      collapsable={undefined}
-      hasTVPreferredFocus={undefined}
-      hitSlop={undefined}
       isTVSelectable={true}
-      nativeID={undefined}
-      onLayout={undefined}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -79,8 +95,6 @@ exports[`app renders app 1`] = `
           "opacity": 1,
         }
       }
-      testID={undefined}
-      tvParallaxProperties={undefined}
     >
       <View
         style={
@@ -92,7 +106,6 @@ exports[`app renders app 1`] = `
         <Text
           accessible={true}
           allowFontScaling={true}
-          disabled={undefined}
           ellipsizeMode="tail"
           style={
             Array [
