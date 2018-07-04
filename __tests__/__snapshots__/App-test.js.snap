@@ -505,7 +505,6 @@ exports[`app renders app 1`] = `
               Object {
                 "alignItems": "center",
                 "justifyContent": "center",
-                "paddingTop": 10,
               }
             }
           >
@@ -524,13 +523,14 @@ exports[`app renders app 1`] = `
                     "overflow": "hidden",
                   },
                   Object {
-                    "backgroundColor": "#f2f2f2",
-                    "borderRadius": 0,
+                    "backgroundColor": "transparent",
+                    "borderRadius": 5,
                   },
                 ]
               }
             >
               <View
+                padding={0}
                 style={
                   Array [
                     Object {
@@ -540,8 +540,8 @@ exports[`app renders app 1`] = `
                       "padding": 8,
                     },
                     Object {
-                      "backgroundColor": "#f2f2f2",
-                      "borderRadius": 0,
+                      "backgroundColor": "transparent",
+                      "borderRadius": 5,
                     },
                     undefined,
                   ]
@@ -653,7 +653,9 @@ exports[`app renders app 1`] = `
                       "textAlign": "center",
                     }
                   }
-                />
+                >
+                  33 Minutes
+                </Text>
               </View>
             </View>
           </View>

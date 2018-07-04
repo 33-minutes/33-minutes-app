@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, View, Text, SafeAreaView, Button, ScrollView } from 'react-native';
 
 import HideableView from 'react-native-hideable-view';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import TimerMachine from 'react-timer-machine'
 import moment from "moment";
@@ -44,28 +45,34 @@ class Record extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <HideableView visible={this.state.isMeetingStarted} style={styles.timer}>
-          <Text style={styles.timerText}>
-            <TimerMachine
-              timeStart={1000}
-              started={this.state.isMeetingStarted}
-              countdown={false}
-              interval={1000}
-              formatTimer={(time, ms) =>
-                moment.duration(ms, "milliseconds").format("h [hours], m [minutes], s [seconds]")
-              }
-              >
-            </TimerMachine>
-          </Text>
-        </HideableView>
+      <SafeAreaView style={styles.container}>
+        <ScrollView contentContainerStyle={styles.infoContainer}>
+          <HideableView visible={this.state.isMeetingStarted} style={styles.timer}>
+            <Text style={styles.timerText}>
+              <TimerMachine
+                timeStart={1000}
+                started={this.state.isMeetingStarted}
+                countdown={false}
+                interval={1000}
+                formatTimer={(time, ms) =>
+                  moment.duration(ms, "milliseconds").format("h [hours], m [minutes], s [seconds]")
+                }
+                >
+              </TimerMachine>
+            </Text>
+          </HideableView>
+        </ScrollView>
         <View style={styles.actions}>
-          <Button
-            onPress={() => this.toggleMeeting()}
-            title={ this.state.isMeetingStarted ? 'Stop Meeting' : 'Start Meeting' }>
-          </Button>
+          <Icon.Button 
+            name={ this.state.isMeetingStarted ? 'ios-radio-button-off' : 'ios-radio-button-on' }
+            size={64}
+            padding={0}
+            color='red'
+            backgroundColor='transparent'
+            onPress={() => this.toggleMeeting()}>
+          </Icon.Button>
         </View>
-      </View>
+      </SafeAreaView>
     );
   }
 }
@@ -80,17 +87,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1
   },
+  infoContainer: {
+    flexGrow: 1,
+    justifyContent: 'center'
+  },
   timer: {
-    alignItems: 'center',
-    height: 50
+    alignItems: 'center'
   },
   timerText: {
-    fontSize: 24,
-    padding: 20
+    fontSize: 16
   },
   actions: {
+    alignItems: 'center',
     borderTopWidth: 1,
-    padding: 50,
-    marginTop: 10
+    paddingTop: 20
   }
 });

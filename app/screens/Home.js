@@ -12,9 +12,9 @@ export default class Home extends Component {
           <Icon.Button 
             name='ios-radio-button-on'
             size={64}
-            borderRadius={0}
+            padding={0}
             color='red'
-            backgroundColor='#f2f2f2'
+            backgroundColor='transparent'
             onPress={() => this.props.navigation.navigate('Record')}>
           </Icon.Button>
         </View>
@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#f2f2f2'
   },
   actions: {
-    paddingTop: 10,
     justifyContent: 'center',
     alignItems: 'center'
   }
