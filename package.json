@@ -28,6 +28,9 @@
     "react-native-elements": "^0.19.1",
     "react-native-hideable-view": "github:osagie/react-native-hideable-view",
     "react-navigation": "^2.5.5",
-    "react-timer-machine": "^1.0.1"
+    "react-redux": "^5.0.7",
+    "react-timer-machine": "^1.0.1",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.3.0"
   }
 }
