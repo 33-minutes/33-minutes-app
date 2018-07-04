@@ -9,24 +9,20 @@ export function fetchMeetings() {
   }
 }
 
-export function createMeeting(data) {
+export function createMeeting(meetingData) {
   return function(dispatch) {
     dispatch({
       type: NEW_MEETING,
-      payload: {
-        startDateTime: data.startDateTime
-      }
+      payload: meetingData
     })
   }
 }
 
-export function deleteMeeting(data) {
+export function deleteMeeting(meetingData) {
   return function(dispatch) {
     dispatch({
       type: DELETE_MEETING,
-      payload: {
-        key: data.key
-      }
+      payload: meetingData
     })
   }
 }

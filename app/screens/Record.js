@@ -29,7 +29,11 @@ class Record extends React.Component {
   stopMeeting() {
     this.setState({ isMeetingStarted: false, meetingStartedAt: null })
 
-    const meeting = { startDateTime: this.state.meetingStartedAt }
+    const meeting = { 
+      startDateTime: this.state.meetingStartedAt,
+      endDateTime: new Date()
+    }
+
     this.props.createMeeting(meeting)
 
     this.props.navigation.navigate('Main')
