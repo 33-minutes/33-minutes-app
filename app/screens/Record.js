@@ -51,6 +51,9 @@ class Record extends React.Component {
     return (
       <SafeAreaView style={styles.container}>
         <ScrollView contentContainerStyle={styles.infoContainer}>
+          <HideableView visible={!this.state.isMeetingStarted}>
+            <Text>GPS location coming soon.</Text>
+          </HideableView>
           <HideableView visible={this.state.isMeetingStarted} style={styles.timer}>
             <Text style={styles.timerText}>
               <TimerMachine
@@ -93,7 +96,8 @@ const styles = StyleSheet.create({
   },
   infoContainer: {
     flexGrow: 1,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   timer: {
     alignItems: 'center'
