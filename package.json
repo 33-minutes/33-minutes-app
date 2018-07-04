@@ -25,7 +25,9 @@
     "moment-duration-format": "^2.2.2",
     "react": "16.4.1",
     "react-native": "~0.55.2",
+    "react-native-elements": "^0.19.1",
     "react-native-hideable-view": "github:osagie/react-native-hideable-view",
+    "react-navigation": "^2.5.5",
     "react-timer-machine": "^1.0.1"
   }
 }
