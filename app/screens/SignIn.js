@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, TextInput, SafeAreaView, TouchableOpacity, KeyboardAvoidingView, StatusBar } from 'react-native';
+import { Text, View, StyleSheet, TextInput, SafeAreaView, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+import Logo from '../components/Logo'
 
 export default class SignIn extends Component {
   onSignIn() {
@@ -10,10 +11,7 @@ export default class SignIn extends Component {
     return (
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
         <SafeAreaView style={styles.safeContainer}>
-          <View style={styles.logoContainer}>
-            <StatusBar barStyle='light-content' />
-            <Text style={styles.title}>33 Minutes</Text>
-          </View>
+          <Logo />
           <View style={styles.formContainer}>
             <TextInput style={styles.input} 
               placeholder='e-mail address' 
@@ -57,15 +55,6 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     alignSelf: 'stretch',
     justifyContent: 'center'
-  },
-  logoContainer: {
-    flexGrow: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  title: {
-    color: 'black',
-    opacity: 0.9
   },
   formContainer: {
     alignSelf: 'stretch',
