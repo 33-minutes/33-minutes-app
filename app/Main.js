@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import Home from './screens/Home';
 import Record from './screens/Record';
 import SignIn from './screens/SignIn';
 import SignUp from './screens/SignUp';
 import { createSwitchNavigator, createStackNavigator } from 'react-navigation';
+import { Tabs } from './screens/Tabs'
 
 const SignedOut = createStackNavigator({
   SignIn: {
@@ -22,7 +22,7 @@ const SignedOut = createStackNavigator({
 
 const SignedIn = createStackNavigator({
   Main: {
-    screen: Home,
+    screen: Tabs,
     navigationOptions: {
       headerTitle: '33 Minutes',
       headerBackTitle: 'Cancel'

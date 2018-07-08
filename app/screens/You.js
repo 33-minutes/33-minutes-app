@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import Meetings from '../components/Meetings'
+import Icon from 'react-native-vector-icons/Ionicons';
+import Actions from '../components/Actions'
 
 export default class You extends Component {
   render() {
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <Meetings />
-      </View>
+        <Actions />
+      </SafeAreaView>
     )
   }
 }
