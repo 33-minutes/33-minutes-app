@@ -1,9 +1,26 @@
 import React, { Component } from 'react';
 import Home from './screens/Home';
 import Record from './screens/Record';
-import { createStackNavigator } from 'react-navigation';
+import SignIn from './screens/SignIn';
+import SignUp from './screens/SignUp';
+import { createSwitchNavigator, createStackNavigator } from 'react-navigation';
 
-export const Main = createStackNavigator({
+const SignedOut = createStackNavigator({
+  SignIn: {
+    screen: SignIn,
+    navigationOptions: {
+      title: 'Sign In'
+    }
+  },
+  SignUp: {
+    screen: SignUp,
+    navigationOptions: {
+      title: 'Sign Up'
+    }
+  }
+});
+
+const SignedIn = createStackNavigator({
   Main: {
     screen: Home,
     navigationOptions: {
@@ -18,3 +35,19 @@ export const Main = createStackNavigator({
     }
   }
 });
+
+export const createRootNavigator = (signedIn = false) => {
+  return createSwitchNavigator(
+    {
+      SignedIn: {
+        screen: SignedIn
+      },
+      SignedOut: {
+        screen: SignedOut
+      }
+    },
+    {
+      initialRouteName: signedIn ? 'SignedIn' : 'SignedOut'
+    }
+  )
+}
