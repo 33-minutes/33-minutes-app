@@ -1,10 +1,35 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types'
 import { Text, View, StyleSheet, TextInput, SafeAreaView, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import Logo from '../components/Logo'
 
+import { createFragmentContainer, graphql } from 'react-relay'
+import LoginMutation from '../mutations/LoginMutation'
+import environment from '../Environment'
+
 export default class SignIn extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { 
+      email: '',
+      password: '',
+      message: ''
+    };
+  }
+
   onSignIn() {
-    return Promise.resolve();
+    LoginMutation.commit({
+      environment,
+      input: { 
+        email: this.state.email, 
+        password: this.state.password 
+      }
+    }).then(response => {
+      this.props.navigation.navigate('SignedIn')
+    }).catch(error => {
+      this.setState({ message: error.message });
+    });
   }
   
   render() {
@@ -13,6 +38,7 @@ export default class SignIn extends Component {
         <SafeAreaView style={styles.safeContainer}>
           <Logo />
           <View style={styles.formContainer}>
+            <Text style={styles.error}>{ this.state.message }</Text>
             <TextInput style={styles.input} 
               placeholder='e-mail address' 
               placeholderTextColor='rgba(0, 0, 0, 0.2)' 
@@ -21,16 +47,18 @@ export default class SignIn extends Component {
               autoCorrect={false}
               onSubmitEditing={() => this.passwordInput.focus()}
               keyboardType='email-address'
+              onChangeText={(text) => this.setState({ email: text })}
             />
             <TextInput style={styles.input} 
               placeholder='password' 
               placeholderTextColor='rgba(0, 0, 0, 0.2)' 
               returnKeyType='go'
               secureTextEntry
+              onChangeText={(text) => this.setState({ password: text })}
               ref={(input) => this.passwordInput = input}
             />
             <TouchableOpacity style={styles.button} 
-              onPress={() => this.onSignIn().then(() => this.props.navigation.navigate('SignedIn')) }>
+              onPress={() => this.onSignIn()}>
               <Text style={styles.buttonText}>LOGIN</Text>
             </TouchableOpacity>
             <Text 
@@ -61,6 +89,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20
+  },
+  error: {
+    padding: 10,
+    fontWeight: '500',
+    color: 'red'
   },
   input: {
     alignSelf: 'stretch',

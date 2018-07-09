@@ -2,9 +2,35 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet, TextInput, SafeAreaView, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import Logo from '../components/Logo'
 
-export default class SignUp extends Component {
-  onSignUp() {
+import { createFragmentContainer, graphql } from 'react-relay'
+import CreateUserMutation from '../mutations/CreateUserMutation'
+import environment from '../Environment'
 
+export default class SignUp extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { 
+      name: '',
+      email: '',
+      password: '',
+      message: ''
+    };
+  }
+
+  onSignUp() {
+    CreateUserMutation.commit({
+      environment,
+      input: {
+        name: this.state.name, 
+        email: this.state.email, 
+        password: this.state.password 
+      }
+    }).then(response => {
+      this.props.navigation.navigate('SignedIn')
+    }).catch(error => {
+      this.setState({ message: error.message });
+    });
   }
 
   render() {
@@ -13,12 +39,14 @@ export default class SignUp extends Component {
         <SafeAreaView style={styles.safeContainer}>
           <Logo />
           <View style={styles.formContainer}>
+            <Text style={styles.error}>{ this.state.message }</Text>
             <TextInput style={styles.input} 
               placeholder='your name' 
               placeholderTextColor='rgba(0, 0, 0, 0.2)' 
               returnKeyType='next'
               autoCorrect={false}
               onSubmitEditing={() => this.emailInput.focus()}
+              onChangeText={(text) => this.setState({ name: text })}
             />
             <TextInput style={styles.input} 
               placeholder='e-mail address' 
@@ -29,6 +57,7 @@ export default class SignUp extends Component {
               onSubmitEditing={() => this.passwordInput.focus()}
               keyboardType='email-address'
               ref={(input) => this.emailInput = input}
+              onChangeText={(text) => this.setState({ email: text })}
             />
             <TextInput style={styles.input} 
               placeholder='password' 
@@ -36,9 +65,10 @@ export default class SignUp extends Component {
               returnKeyType='go'
               secureTextEntry
               ref={(input) => this.passwordInput = input}
+              onChangeText={(text) => this.setState({ password: text })}
             />
             <TouchableOpacity style={styles.button}
-              onPress={() => onSignUp().then(() => this.props.navigation.navigate('SignedIn')) }>
+              onPress={() => this.onSignUp()}>
               <Text style={styles.buttonText}>SIGN-UP</Text>
             </TouchableOpacity>
             <Text 
@@ -69,6 +99,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20
+  },
+  error: {
+    padding: 10,
+    fontWeight: '500',
+    color: 'red'
   },
   input: {
     alignSelf: 'stretch',

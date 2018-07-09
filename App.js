@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { createRootNavigator } from './app/Main'
+import { graphql, QueryRenderer } from 'react-relay';
 
 export default class App extends Component {
   state = {
