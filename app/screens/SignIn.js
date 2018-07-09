@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import { Text, View, StyleSheet, TextInput, SafeAreaView, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import Logo from '../components/Logo'
-
-import { createFragmentContainer, graphql } from 'react-relay'
 import LoginMutation from '../mutations/LoginMutation'
 import environment from '../Environment'
+import localStorage from 'react-native-sync-localstorage';
 
 export default class SignIn extends Component {
   constructor(props) {
@@ -18,7 +17,15 @@ export default class SignIn extends Component {
     };
   }
 
-  onSignIn() {
+  componentWillMount() {
+    localStorage.getAllFromLocalStorage().then(() => {
+      this.setState({ 
+        email: localStorage.getItem('@33minutes:user/email')
+      });
+    })
+  }
+
+  onSignIn() {   
     LoginMutation.commit({
       environment,
       input: { 
@@ -26,6 +33,7 @@ export default class SignIn extends Component {
         password: this.state.password 
       }
     }).then(response => {
+      localStorage.setItem('@33minutes:user/email', this.state.email);
       this.props.navigation.navigate('SignedIn')
     }).catch(error => {
       this.setState({ message: error.message });
@@ -48,7 +56,7 @@ export default class SignIn extends Component {
               onSubmitEditing={() => this.passwordInput.focus()}
               keyboardType='email-address'
               onChangeText={(text) => this.setState({ email: text })}
-            />
+            >{ this.state.email }</TextInput>
             <TextInput style={styles.input} 
               placeholder='password' 
               placeholderTextColor='rgba(0, 0, 0, 0.2)' 
@@ -56,7 +64,7 @@ export default class SignIn extends Component {
               secureTextEntry
               onChangeText={(text) => this.setState({ password: text })}
               ref={(input) => this.passwordInput = input}
-            />
+            >{ this.state.password }</TextInput>
             <TouchableOpacity style={styles.button} 
               onPress={() => this.onSignIn()}>
               <Text style={styles.buttonText}>LOGIN</Text>
