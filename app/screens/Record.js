@@ -4,10 +4,13 @@ import { StyleSheet, View, Text, SafeAreaView, Button, ScrollView } from 'react-
 import HideableView from 'react-native-hideable-view';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import TimerMachine from 'react-timer-machine'
+import TimerMachine from 'react-timer-machine';
 import moment from "moment";
 import momentDurationFormatSetup from "moment-duration-format";
 momentDurationFormatSetup(moment);
+
+import CreateMeetingMutation from '../mutations/CreateMeetingMutation';
+import environment from '../Environment'
 
 export default class Record extends React.Component {
   constructor(props) {
@@ -15,7 +18,7 @@ export default class Record extends React.Component {
     this.state = {
       isMeetingStarted: false,
       meetingStartedAt: null
-    }  
+    }
   }
 
   startMeeting() {
@@ -24,13 +27,18 @@ export default class Record extends React.Component {
 
   stopMeeting() {
     this.setState({ isMeetingStarted: false, meetingStartedAt: null })
-
-    const meeting = { 
-      startDateTime: this.state.meetingStartedAt,
-      endDateTime: new Date()
-    }
-
-    this.props.navigation.navigate('Main')
+    CreateMeetingMutation.commit({
+      environment,
+      input: {
+        title: 'Untitled Meeting',
+        started: this.state.meetingStartedAt,
+        finished: new Date()
+      }
+    }).then(response => {
+      this.props.navigation.navigate('Main')
+    }).catch(error => {
+      alert(error.message);
+    });
   }
 
   toggleMeeting() {
