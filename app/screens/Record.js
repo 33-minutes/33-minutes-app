@@ -9,11 +9,7 @@ import moment from "moment";
 import momentDurationFormatSetup from "moment-duration-format";
 momentDurationFormatSetup(moment);
 
-import { connect } from 'react-redux';
-import { createMeeting } from '../actions/meetingActions'
-import PropTypes from 'prop-types';
-
-class Record extends React.Component {
+export default class Record extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -33,8 +29,6 @@ class Record extends React.Component {
       startDateTime: this.state.meetingStartedAt,
       endDateTime: new Date()
     }
-
-    this.props.createMeeting(meeting)
 
     this.props.navigation.navigate('Main')
   }
@@ -83,12 +77,6 @@ class Record extends React.Component {
     );
   }
 }
-
-Record.propTypes = {
-  createMeeting: PropTypes.func.isRequired
-};
-
-export default connect(null, { createMeeting })(Record);
 
 const styles = StyleSheet.create({
   container: {

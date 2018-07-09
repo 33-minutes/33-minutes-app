@@ -1,3 +1,0 @@
-export const FETCH_MEETINGS = 'FETCH_MEETINGS'
-export const NEW_MEETING = 'NEW_MEETING'
-export const DELETE_MEETING = 'DELETE_MEETING'
