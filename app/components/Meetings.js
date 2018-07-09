@@ -1,19 +1,38 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import Meeting from './Meeting';
+import { createFragmentContainer, graphql } from 'react-relay';
+import DeleteMeetingMutation from '../mutations/DeleteMeetingMutation';
+import environment from '../Environment'
+import localStorage from 'react-native-sync-localstorage';
 
-export default class Meetings extends React.Component {
-  state = {
-    meetings: []
+class Meetings extends React.Component {
+  componentWillMount() {
+    localStorage.getAllFromLocalStorage().then(() => {
+      this.setState({ 
+        user: { id: localStorage.getItem('@33minutes:user/id') }
+      });
+    })
   }
 
-  removeMeetingByKey(key) {
-    
+  removeMeetingById(id) {
+    DeleteMeetingMutation.commit(this.state.user.id, {
+      environment,
+      input: {
+        id: id
+      }
+    }).then(response => {
+      
+    }).catch(error => {
+      alert(error.message);
+    });
   }
 
   render() {
-    let meetings = this.state.meetings.map((val, key) => {
-      return <Meeting key={key} keyval={key} val={val} deleteMethod={ () => this.removeMeetingByKey(key) } />
+    let meetings = this.props.user.meetings.edges.map(({node}) => {
+      if (node) {
+        return <Meeting key={node.__id} meeting={node} deleteMethod={ () => this.removeMeetingById(node.__id) } />
+      }
     })
 
     if (meetings.length == 0) {
@@ -37,3 +56,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   }
 });
+
+export default createFragmentContainer(Meetings, graphql`
+  fragment Meetings_user on User {
+    meetings(last: 10) @connection(key: "Meetings_meetings", filters: []) {
+      edges {
+        node {
+          ...Meeting_meeting
+        }
+      }
+    }
+  }
+`)

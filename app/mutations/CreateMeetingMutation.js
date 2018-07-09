@@ -9,17 +9,31 @@ const mutation = graphql`
         title
         started
         finished
+      },
+      meetingEdge {
+        node {
+          id
+        }
       }
     }
   }
 `
 
-function commit({ environment, input }) {
+function commit(userId, { environment, input }) {
   const variables = { input }
 
   return commitMutation(environment, {
     mutation,
-    variables
+    variables,
+    configs: [{
+      type: 'RANGE_ADD',
+      parentID: userId,
+      connectionInfo: [{
+        key: 'Meetings_meetings',
+        rangeBehavior: 'append',
+      }],
+      edgeName: 'meetingEdge'
+    }]
   })
 }
 

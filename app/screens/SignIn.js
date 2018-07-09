@@ -20,7 +20,8 @@ export default class SignIn extends Component {
   componentWillMount() {
     localStorage.getAllFromLocalStorage().then(() => {
       this.setState({ 
-        email: localStorage.getItem('@33minutes:user/email')
+        email: localStorage.getItem('@33minutes:user/email'),
+        password: localStorage.getItem('@33minutes:user/password')
       });
     })
   }
@@ -33,7 +34,9 @@ export default class SignIn extends Component {
         password: this.state.password 
       }
     }).then(response => {
+      localStorage.setItem('@33minutes:user/id', response.login.user.id);
       localStorage.setItem('@33minutes:user/email', this.state.email);
+      localStorage.setItem('@33minutes:user/password', this.state.password);
       this.props.navigation.navigate('SignedIn')
     }).catch(error => {
       this.setState({ message: error.message });

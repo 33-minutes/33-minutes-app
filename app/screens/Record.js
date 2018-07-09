@@ -11,6 +11,7 @@ momentDurationFormatSetup(moment);
 
 import CreateMeetingMutation from '../mutations/CreateMeetingMutation';
 import environment from '../Environment'
+import localStorage from 'react-native-sync-localstorage';
 
 export default class Record extends React.Component {
   constructor(props) {
@@ -21,13 +22,21 @@ export default class Record extends React.Component {
     }
   }
 
+  componentWillMount() {
+    localStorage.getAllFromLocalStorage().then(() => {
+      this.setState({ 
+        user: { id: localStorage.getItem('@33minutes:user/id') }
+      });
+    })
+  }
+
   startMeeting() {
     this.setState({ isMeetingStarted: true, meetingStartedAt: new Date() })
   }
 
   stopMeeting() {
     this.setState({ isMeetingStarted: false, meetingStartedAt: null })
-    CreateMeetingMutation.commit({
+    CreateMeetingMutation.commit(this.state.user.id, {
       environment,
       input: {
         title: 'Untitled Meeting',

@@ -3,8 +3,9 @@ import { Alert, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import moment from 'moment';
 import twix from 'twix';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { createFragmentContainer, graphql } from 'react-relay';
 
-export default class Meeting extends React.Component {
+class Meeting extends React.Component {
   deleteItem() {
     Alert.alert(
       'Delete Meeting',
@@ -19,13 +20,17 @@ export default class Meeting extends React.Component {
 
   render() {
     return (
-      <View key={this.props.keyval} style={styles.meeting}>
+      <View key={this.props.meeting.id} style={styles.meeting}>
         <Text style={styles.meetingText}>{
-          moment(this.props.val.startDateTime).format('dddd, MMMM Do, YYYY h:mm A')
+          this.props.meeting.title
         }</Text>
 
         <Text style={styles.meetingText}>{
-          moment(this.props.val.endDateTime).twix(this.props.val.startDateTime).humanizeLength()
+          moment(this.props.meeting.started).format('dddd, MMMM Do, YYYY h:mm A')
+        }</Text>
+
+        <Text style={styles.meetingText}>{
+          moment(this.props.meeting.finished).twix(this.props.meeting.started).humanizeLength()
         }</Text>
 
         <View style={ styles.deleteMeetingButton }>
@@ -63,3 +68,12 @@ const styles = StyleSheet.create({
     color: 'white'
   }
 });
+
+export default createFragmentContainer(Meeting, graphql`
+  fragment Meeting_meeting on Meeting {
+    id
+    title
+    started
+    finished
+  }
+`)
