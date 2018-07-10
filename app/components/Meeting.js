@@ -4,15 +4,31 @@ import moment from 'moment';
 import twix from 'twix';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { createFragmentContainer, graphql } from 'react-relay';
+import environment from '../Environment'
+import DeleteMeetingMutation from '../mutations/DeleteMeetingMutation';
+import PropTypes from 'prop-types';
 
 class Meeting extends React.Component {
+  removeMeeting() {
+    DeleteMeetingMutation.commit(this.props.user.id, {
+      environment,
+      input: {
+        id: this.props.meeting.id
+      }
+    }).then(response => {
+      
+    }).catch(error => {
+      alert(error.message);
+    });
+  }
+
   deleteItem() {
     Alert.alert(
       'Delete Meeting',
       'Are you sure?',
       [
         { text: 'No', style: 'cancel' },
-        { text: 'Yes', onPress: () => this.props.deleteMethod() },
+        { text: 'Yes', onPress: () => this.removeMeeting() },
       ],
       { cancelable: true }
     )
@@ -68,6 +84,11 @@ const styles = StyleSheet.create({
     color: 'white'
   }
 });
+
+Meeting.propTypes = {
+  user: PropTypes.object,
+  meeting: PropTypes.object
+};
 
 export default createFragmentContainer(Meeting, graphql`
   fragment Meeting_meeting on Meeting {
