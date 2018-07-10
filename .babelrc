@@ -1,9 +1,9 @@
 {
   "presets": ["babel-preset-expo"],
+  "plugins": ["relay"],
   "env": {
     "development": {
       "plugins": [
-        ["relay", { "schema": "schema/schema.graphql" }],
         "transform-react-jsx-source"
       ]
     }

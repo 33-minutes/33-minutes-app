@@ -24,6 +24,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "buffer": "^5.1.0",
     "expo": "^27.0.1",
     "moment": "^2.22.2",
     "moment-duration-format": "^2.2.2",
@@ -38,6 +39,7 @@
     "react-timer-machine": "^1.0.1",
     "relay-commit-mutation-promise": "^1.0.1",
     "twix": "^1.2.1",
+    "uuid": "^3.3.2",
     "yarn": "^1.7.0"
   }
 }

@@ -1,9 +1,11 @@
 import { graphql } from 'react-relay'
 import commitMutation from 'relay-commit-mutation-promise'
+import uuid from 'uuid/v4';
 
 const mutation = graphql`
   mutation CreateUserMutation($input: createUserInput!) {
     createUser(input: $input) {
+      clientMutationId,
       user {
         id
       }
@@ -12,7 +14,12 @@ const mutation = graphql`
 `
 
 function commit({ environment, input }) {
-  const variables = { input }
+  const variables = { 
+    input: {
+      clientMutationId: uuid(),
+      ...input
+    } 
+  }
 
   return commitMutation(environment, {
     mutation,
