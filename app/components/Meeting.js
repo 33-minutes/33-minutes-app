@@ -18,7 +18,7 @@ class Meeting extends React.Component {
     )
   }
 
-  render() {
+  render() {    
     return (
       <View key={this.props.meeting.id} style={styles.meeting}>
         <Text style={styles.meetingText}>{

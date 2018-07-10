@@ -4,19 +4,11 @@ import Meeting from './Meeting';
 import { createFragmentContainer, graphql } from 'react-relay';
 import DeleteMeetingMutation from '../mutations/DeleteMeetingMutation';
 import environment from '../Environment'
-import localStorage from 'react-native-sync-localstorage';
+import PropTypes from 'prop-types';
 
 class Meetings extends React.Component {
-  componentWillMount() {
-    localStorage.getAllFromLocalStorage().then(() => {
-      this.setState({ 
-        user: { id: localStorage.getItem('@33minutes:user/id') }
-      });
-    })
-  }
-
   removeMeetingById(id) {
-    DeleteMeetingMutation.commit(this.state.user.id, {
+    DeleteMeetingMutation.commit(this.props.user.id, {
       environment,
       input: {
         id: id
@@ -57,8 +49,13 @@ const styles = StyleSheet.create({
   }
 });
 
+Meetings.propTypes = {
+  user: PropTypes.object
+};
+
 export default createFragmentContainer(Meetings, graphql`
   fragment Meetings_user on User {
+    id
     meetings(last: 10) @connection(key: "Meetings_meetings", filters: []) {
       edges {
         node {

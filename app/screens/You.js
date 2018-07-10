@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Text, View, SafeAreaView, StyleSheet } from 'react-native';
+import { Button, Text, View, SafeAreaView, StyleSheet } from 'react-native';
 import Meetings from '../components/Meetings'
 import Icon from 'react-native-vector-icons/Ionicons';
 import Actions from '../components/Actions';
 import environment from '../Environment';
 import { graphql, QueryRenderer } from 'react-relay';
+import RetryOnError from '../components/RetryOnError';
 
 export default class You extends Component {
   render() {
@@ -20,16 +21,15 @@ export default class You extends Component {
               }
             }
           `}
-          render={({error, props}) => {
+          render={({error, props, retry}) => {
             if (error) {
-              return <Text>Error!</Text>;
+              return <RetryOnError message={error.message} retry={retry} />
             }
-            if (!props) {
-              return <Text>Loading...</Text>;
+            if (! props) {
+              return <Text>Loading ...</Text>;
             }
             return (
               <View>
-                <Text>Meetings for user { props.user.id }</Text>
                 <Meetings user={ props.user } />
                 <Actions />
               </View>
