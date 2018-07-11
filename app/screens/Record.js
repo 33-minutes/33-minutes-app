@@ -10,7 +10,6 @@ import momentDurationFormatSetup from "moment-duration-format";
 momentDurationFormatSetup(moment);
 
 import CreateMeetingMutation from '../mutations/CreateMeetingMutation';
-import environment from '../Environment'
 import localStorage from 'react-native-sync-localstorage';
 
 export default class Record extends React.Component {
@@ -36,6 +35,7 @@ export default class Record extends React.Component {
 
   stopMeeting() {
     this.setState({ isMeetingStarted: false, meetingStartedAt: null })
+    const environment = this.props.screenProps.relay.environment;
     CreateMeetingMutation.commit(this.state.user.id, {
       environment,
       input: {

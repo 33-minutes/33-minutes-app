@@ -1,4 +1,3 @@
-import React, { Component } from 'react';
 import Record from './screens/Record';
 import SignIn from './screens/SignIn';
 import SignUp from './screens/SignUp';

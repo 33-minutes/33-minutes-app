@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types'
 import { Text, View, StyleSheet, TextInput, SafeAreaView, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import Logo from '../components/Logo'
 import LoginMutation from '../mutations/LoginMutation'
-import environment from '../Environment'
 import localStorage from 'react-native-sync-localstorage';
 
 export default class SignIn extends Component {
@@ -26,7 +24,8 @@ export default class SignIn extends Component {
     })
   }
 
-  onSignIn() {   
+  onSignIn() {
+    const environment = this.props.screenProps.relay.environment;
     LoginMutation.commit({
       environment,
       input: { 

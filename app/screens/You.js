@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
-import { Button, Text, View, SafeAreaView, StyleSheet } from 'react-native';
+import { Text, SafeAreaView, StyleSheet } from 'react-native';
 import Meetings from '../components/Meetings'
-import Icon from 'react-native-vector-icons/Ionicons';
 import Actions from '../components/Actions';
-import environment from '../Environment';
 import { graphql, QueryRenderer } from 'react-relay';
 import RetryOnError from '../components/RetryOnError';
 
 export default class You extends Component {
   render() {
     return (
-      <SafeAreaView style={styles.container}>
         <QueryRenderer
-          environment={environment}
+          environment={this.props.screenProps.relay.environment}
           query={graphql`
             query YouQuery {
               user {
@@ -29,14 +26,13 @@ export default class You extends Component {
               return <Text>Loading ...</Text>;
             }
             return (
-              <View>
+              <SafeAreaView style={styles.container}>
                 <Meetings user={ props.user } />
                 <Actions />
-              </View>
+              </SafeAreaView>
             );
           }}>
         </QueryRenderer>
-      </SafeAreaView>
     )
   }
 }

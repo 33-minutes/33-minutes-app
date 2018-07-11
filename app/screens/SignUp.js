@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet, TextInput, SafeAreaView, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import Logo from '../components/Logo'
 import localStorage from 'react-native-sync-localstorage';
-import { createFragmentContainer, graphql } from 'react-relay'
 import CreateUserMutation from '../mutations/CreateUserMutation'
-import environment from '../Environment'
 
 export default class SignUp extends Component {
   constructor(props) {
@@ -23,6 +21,7 @@ export default class SignUp extends Component {
   }
 
   onSignUp() {
+    const environment = this.props.screenProps.relay.environment;
     CreateUserMutation.commit({
       environment,
       input: {

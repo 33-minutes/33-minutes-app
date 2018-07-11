@@ -1,15 +1,15 @@
 import React from 'react';
-import { Alert, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { Alert, StyleSheet, Text, View } from 'react-native';
 import moment from 'moment';
 import twix from 'twix';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { createFragmentContainer, graphql } from 'react-relay';
-import environment from '../Environment'
 import DeleteMeetingMutation from '../mutations/DeleteMeetingMutation';
 import PropTypes from 'prop-types';
 
 class Meeting extends React.Component {
   removeMeeting() {
+    const environment = this.props.relay.environment;
     DeleteMeetingMutation.commit(this.props.user.id, {
       environment,
       input: {

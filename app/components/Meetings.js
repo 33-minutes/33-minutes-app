@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, View, Text, StyleSheet, ScrollView } from 'react-native';
+import { ScrollView, FlatList, Text, StyleSheet } from 'react-native';
 import Meeting from './Meeting';
 import { createPaginationContainer, graphql } from 'react-relay';
 import PropTypes from 'prop-types';
@@ -26,23 +26,28 @@ class Meetings extends React.Component {
   }
 
   render() {
-    return (
-      <FlatList 
-        data={this.props.user.meetings.edges}
+    let meetings = this.props.user.meetings.edges;
+    if (meetings.length > 0) {
+      return <FlatList 
+        data={meetings}
         // bug: https://github.com/33-minutes/33-minutes-app/issues/5
         keyExtractor={(item) => { if (item.node) { return item.node.__id } else { return uuid() } } }
         renderItem={(item) => this.renderMeeting(item)}
         onEndReached={() => this._loadMore() }
       />
-    );
+    } else {
+      return(
+        <ScrollView>
+          <Text style={styles.placeholder} key={0}>Click button to record a meeting duration.</Text>
+        </ScrollView>
+      )
+    }
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  placeholder: {
+    padding: 20
   }
 });
 

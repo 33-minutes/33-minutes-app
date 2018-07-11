@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { createRootNavigator } from './app/Main'
-import { graphql, QueryRenderer } from 'react-relay';
+import { createRootNavigator } from './app/Main';
+import environment from './app/Environment';
 
 export default class App extends Component {
   state = {
@@ -9,10 +9,17 @@ export default class App extends Component {
 
   render() {
     const { signedIn } = this.state;
+    
+    const screenProps = { 
+      relay: {
+        environment: environment
+      }
+    }
+
     const Layout = createRootNavigator(signedIn);
 
     return (
-      <Layout />
+      <Layout screenProps={ screenProps } />
     );
   }
 }
