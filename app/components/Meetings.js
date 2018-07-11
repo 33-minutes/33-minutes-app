@@ -26,12 +26,11 @@ class Meetings extends React.Component {
   }
 
   render() {
-    let meetings = this.props.user.meetings.edges;
+    let meetings = this.props.user.meetings.edges.filter((meeting) => meeting.node);
     if (meetings.length > 0) {
       return <FlatList 
         data={meetings}
-        // bug: https://github.com/33-minutes/33-minutes-app/issues/5
-        keyExtractor={(item) => { if (item.node) { return item.node.__id } else { return uuid() } } }
+        keyExtractor={(item) => { return item.node.__id }}
         renderItem={(item) => this.renderMeeting(item)}
         onEndReached={() => this._loadMore() }
       />
