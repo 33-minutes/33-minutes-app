@@ -23,7 +23,11 @@ export default class You extends Component {
               return <RetryOnError message={error.message} retry={retry} />
             }
             if (! props) {
-              return <Text>Loading ...</Text>;
+              return (
+                <SafeAreaView style={styles.container}>
+                  <Text>Loading ...</Text>
+                </SafeAreaView>
+              );
             }
             return (
               <SafeAreaView style={styles.container}>

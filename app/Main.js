@@ -25,7 +25,7 @@ const SignedIn = createStackNavigator({
     screen: Tabs,
     navigationOptions: {
       headerTitle: '33 Minutes',
-      headerBackTitle: 'Cancel'
+      headerBackTitle: 'Back'
     }
   },
   Record: {
@@ -37,8 +37,7 @@ const SignedIn = createStackNavigator({
   Meeting: {
     screen: Meeting,
     navigationOptions: {
-      headerTitle: 'Edit Meeting',
-      headerBackTitle: 'Cancel'
+      headerTitle: 'Edit Meeting'
     }
   }
 });

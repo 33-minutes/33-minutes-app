@@ -1,14 +1,22 @@
 import React from 'react';
 import moment from 'moment';
 import twix from 'twix';
-import { Alert, StyleSheet, View, Text, SafeAreaView } from 'react-native';
+import { Alert, StyleSheet, View, Text, SafeAreaView, TextInput } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import PropTypes from 'prop-types';
 import DeleteMeetingMutation from '../mutations/DeleteMeetingMutation';
+import UpdateMeetingMutation from '../mutations/UpdateMeetingMutation';
 import { withMappedNavigationProps } from 'react-navigation-props-mapper';
 
 @withMappedNavigationProps()
 export default class Meeting extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      meeting: props.meeting
+    }
+  }
+
   _deleteMeeting() {
     const environment = this.props.relay.environment;
     DeleteMeetingMutation.commit(this.props.user.id, {
@@ -17,7 +25,7 @@ export default class Meeting extends React.Component {
         id: this.props.meeting.id
       }
     }).then(response => {
-      this.props.navigation.goBack();
+
     }).catch(error => {
       alert(error.message);
     });
@@ -35,13 +43,36 @@ export default class Meeting extends React.Component {
     )
   }
 
+  _updateMeeting() {
+    const environment = this.props.relay.environment;
+    UpdateMeetingMutation.commit(this.props.user.id, {
+      environment,
+      input: this.state.meeting
+    }).then(response => {
+
+    }).catch(error => {
+      alert(error.message);
+    });
+  }
+
   render() {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.infoContainer}>
-          <Text style={styles.meetingTitle}>{
-            this.props.meeting.title
-          }</Text>
+          <TextInput 
+            style={styles.meetingTitle} 
+            placeholderText='title'
+            placeholderTextColor='rgba(0, 0, 0, 0.2)' 
+            ref={(input) => this.titleInput = input}
+            value={ this.state.meeting.title }
+            onChangeText={(text) => this.setState({ 
+              meeting: { 
+                ...this.state.meeting,
+                title: text
+              }
+            })}
+            onSubmitEditing={() => this._updateMeeting()}>{
+          }</TextInput>
 
           <Text style={styles.meetingText}>{
             moment(this.props.meeting.started).format('dddd, MMMM Do, YYYY h:mm A')
@@ -76,7 +107,10 @@ const styles = StyleSheet.create({
   },
   meetingTitle: {
     fontSize: 36,
-    fontWeight: '500'
+    fontWeight: '500',
+    alignSelf: 'stretch',
+    marginBottom: 10,
+    padding: 5
   },
   meetingText: {
     paddingLeft: 5
