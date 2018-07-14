@@ -1,8 +1,9 @@
-import Record from './screens/Record';
 import SignIn from './screens/SignIn';
 import SignUp from './screens/SignUp';
-import { createSwitchNavigator, createStackNavigator } from 'react-navigation';
+import Meeting from './screens/Meeting';
+import Record from './screens/Record';
 import { Tabs } from './screens/Tabs'
+import { createSwitchNavigator, createStackNavigator } from 'react-navigation';
 
 const SignedOut = createStackNavigator({
   SignIn: {
@@ -31,6 +32,13 @@ const SignedIn = createStackNavigator({
     screen: Record,
     navigationOptions: {
       headerTitle: 'Record Time'
+    }
+  },
+  Meeting: {
+    screen: Meeting,
+    navigationOptions: {
+      headerTitle: 'Edit Meeting',
+      headerBackTitle: 'Cancel'
     }
   }
 });

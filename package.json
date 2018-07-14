@@ -35,6 +35,7 @@
     "react-native-hideable-view": "github:osagie/react-native-hideable-view",
     "react-native-sync-localstorage": "0.0.3",
     "react-navigation": "^2.5.5",
+    "react-navigation-props-mapper": "^0.3.0",
     "react-relay": "^1.6.0",
     "react-timer-machine": "^1.0.1",
     "relay-commit-mutation-promise": "^1.0.1",

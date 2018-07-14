@@ -1,14 +1,15 @@
 import React from 'react';
 import { ScrollView, FlatList, Text, StyleSheet } from 'react-native';
-import Meeting from './Meeting';
+import MeetingRow from './MeetingRow';
 import { createPaginationContainer, graphql } from 'react-relay';
 import PropTypes from 'prop-types';
 import uuid from 'uuid/v4';
+import { withNavigation } from 'react-navigation';
 
 class Meetings extends React.Component {
-  renderMeeting(val) {
+  _renderMeeting(val) {
     if (val.item.node) {
-      return <Meeting key={val.item.node.__id} meeting={val.item.node} user={this.props.user} />
+      return <MeetingRow key={val.item.node.__id} meeting={val.item.node} user={this.props.user} />
     }
   }
 
@@ -28,10 +29,11 @@ class Meetings extends React.Component {
   render() {
     let meetings = this.props.user.meetings.edges.filter((meeting) => meeting.node);
     if (meetings.length > 0) {
-      return <FlatList 
+      return <FlatList
+        style={styles.meetings} 
         data={meetings}
         keyExtractor={(item) => { return item.node.__id }}
-        renderItem={(item) => this.renderMeeting(item)}
+        renderItem={(item) => this._renderMeeting(item)}
         onEndReached={() => this._loadMore() }
       />
     } else {
@@ -45,6 +47,9 @@ class Meetings extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  meetings: {
+    alignSelf: 'stretch'
+  },
   placeholder: {
     padding: 20
   }
@@ -54,7 +59,7 @@ Meetings.propTypes = {
   user: PropTypes.object
 };
 
-export default createPaginationContainer(
+export default withNavigation(createPaginationContainer(
   Meetings, 
   {
     user: graphql`
@@ -71,7 +76,7 @@ export default createPaginationContainer(
           edges {
             node {
               id
-              ...Meeting_meeting
+              ...MeetingRow_meeting
             }
           }
           pageInfo {
@@ -109,4 +114,4 @@ export default createPaginationContainer(
       }
     `
   }
-);
+));
