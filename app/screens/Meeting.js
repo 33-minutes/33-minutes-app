@@ -3,8 +3,7 @@ import moment from 'moment';
 import twix from 'twix';
 import { TouchableOpacity, Alert, StyleSheet, View, Text, SafeAreaView, TextInput } from 'react-native';
 import PropTypes from 'prop-types';
-import DeleteMeetingMutation from '../mutations/DeleteMeetingMutation';
-import UpdateMeetingMutation from '../mutations/UpdateMeetingMutation';
+import { DeleteMeetingMutation, UpdateMeetingMutation } from '../mutations';
 import { withMappedNavigationProps } from 'react-navigation-props-mapper';
 
 @withMappedNavigationProps()

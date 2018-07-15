@@ -1,12 +1,12 @@
 import React from 'react';
-import { TouchableOpacity, StyleSheet, View, Text, SafeAreaView, TextInput } from 'react-native';
-import UpdateUserMutation from '../mutations/UpdateUserMutation'
-import LogoutMutation from '../mutations/LogoutMutation'
+import { Alert, TouchableOpacity, StyleSheet, View, Text, SafeAreaView } from 'react-native';
+import { UpdateUserMutation, LogoutMutation, DeleteUserMutation } from '../mutations'
 import { withNavigation } from 'react-navigation';
 import RetryOnError from '../components/RetryOnError';
 import { graphql, QueryRenderer } from 'react-relay';
 import { withMappedNavigationProps } from 'react-navigation-props-mapper';
 import SettingsList from 'react-native-settings-list';
+import localStorage from 'react-native-sync-localstorage';
 
 @withMappedNavigationProps()
 class Settings extends React.Component {
@@ -26,6 +26,7 @@ class Settings extends React.Component {
     LogoutMutation.commit({
       environment
     }).then(response => {
+      localStorage.removeItem('@33minutes:user/password');
       this.props.navigation.navigate('SignIn');
     }).catch(error => {
       alert(error.message);
@@ -42,6 +43,31 @@ class Settings extends React.Component {
     }).catch(error => {
       alert(error.message);
     });
+  }
+
+  _delete() {
+    const environment = this.props.relay.environment;
+    DeleteUserMutation.commit({
+      environment
+    }).then(response => {
+      localStorage.removeItem('@33minutes:user/email');
+      localStorage.removeItem('@33minutes:user/password');
+      this.props.navigation.navigate('SignIn');
+    }).catch(error => {
+      alert(error.message);
+    });
+  }
+
+  _deleteWithConfirmation() {
+    Alert.alert(
+      'Permanently Delete Account',
+      'Are you sure?',
+      [
+        { text: 'No', style: 'cancel' },
+        { text: 'Yes', onPress: () => this._delete() },
+      ],
+      { cancelable: true }
+    )
   }
 
   render() {
@@ -114,6 +140,9 @@ class Settings extends React.Component {
                 <TouchableOpacity style={styles.whiteButton} onPress={() => this._logout()}>
                   <Text style={styles.whiteButtonText}>LOGOUT</Text>
                 </TouchableOpacity>
+                <TouchableOpacity style={styles.redButton} onPress={() => this._deleteWithConfirmation()}>
+                  <Text style={styles.redButtonText}>DELETE ACCOUNT</Text>
+                </TouchableOpacity>
               </View>
             </SafeAreaView>        
           );
@@ -169,6 +198,15 @@ const styles = StyleSheet.create({
     borderColor: 'grey',
     borderWidth: 1
   },
+  redButton: {
+    alignSelf: 'stretch',
+    backgroundColor: 'white',
+    alignItems: 'center',
+    height: 40,
+    marginBottom: 10,
+    borderColor: 'red',
+    borderWidth: 1
+  },
   buttonText: {
     paddingVertical: 10,
     color: 'white',
@@ -177,6 +215,11 @@ const styles = StyleSheet.create({
   whiteButtonText: {
     paddingVertical: 10,
     color: 'black',
+    fontWeight: '700'    
+  },
+  redButtonText: {
+    paddingVertical: 10,
+    color: 'red',
     fontWeight: '700'    
   },
   actions: {

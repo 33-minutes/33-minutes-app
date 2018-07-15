@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, TextInput, SafeAreaView, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import Logo from '../components/Logo'
-import LoginMutation from '../mutations/LoginMutation'
+import { LoginMutation } from '../mutations'
 import localStorage from 'react-native-sync-localstorage';
 import { withMappedNavigationProps } from 'react-navigation-props-mapper';
 
@@ -26,7 +26,7 @@ export default class SignIn extends Component {
     })
   }
 
-  onSignIn() {
+  _signIn() {
     const environment = this.props.relay.environment;
     LoginMutation.commit({
       environment,
@@ -67,10 +67,11 @@ export default class SignIn extends Component {
               returnKeyType='go'
               secureTextEntry
               onChangeText={(text) => this.setState({ password: text })}
+              onSubmitEditing={() => this._signIn()}
               ref={(input) => this.passwordInput = input}
             >{ this.state.password }</TextInput>
             <TouchableOpacity style={styles.button} 
-              onPress={() => this.onSignIn()}>
+              onPress={() => this._signIn()}>
               <Text style={styles.buttonText}>LOGIN</Text>
             </TouchableOpacity>
             <Text 

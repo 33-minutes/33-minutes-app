@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet, TextInput, SafeAreaView, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import Logo from '../components/Logo'
 import localStorage from 'react-native-sync-localstorage';
-import CreateUserMutation from '../mutations/CreateUserMutation'
+import { CreateUserMutation } from '../mutations'
 import { withMappedNavigationProps } from 'react-navigation-props-mapper';
 
 @withMappedNavigationProps()

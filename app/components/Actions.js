@@ -10,8 +10,9 @@ class Actions extends Component {
         <Icon.Button
           name='ios-pie'
           size={36}
-          color='black'
+          color='grey'
           backgroundColor='transparent'
+          disabled={true}
           onPress={() => this.props.navigation.navigate('Budget')} />
         <Icon.Button
           name='ios-radio-button-on'
