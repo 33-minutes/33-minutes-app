@@ -4,12 +4,14 @@ import Meetings from '../components/Meetings'
 import Actions from '../components/Actions';
 import { graphql, QueryRenderer } from 'react-relay';
 import RetryOnError from '../components/RetryOnError';
+import { withMappedNavigationProps } from 'react-navigation-props-mapper';
 
+@withMappedNavigationProps()
 export default class You extends Component {
   render() {
     return (
         <QueryRenderer
-          environment={this.props.screenProps.relay.environment}
+          environment={this.props.relay.environment}
           query={graphql`
             query YouQuery {
               user {
@@ -45,6 +47,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'    
+    alignItems: 'center'
   }
 });

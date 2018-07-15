@@ -33,6 +33,7 @@
     "react-native": "~0.55.2",
     "react-native-elements": "^0.19.1",
     "react-native-hideable-view": "github:osagie/react-native-hideable-view",
+    "react-native-settings-list": "^1.8.0",
     "react-native-sync-localstorage": "0.0.3",
     "react-navigation": "^2.5.5",
     "react-navigation-props-mapper": "^0.3.0",

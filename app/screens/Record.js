@@ -12,6 +12,9 @@ momentDurationFormatSetup(moment);
 import CreateMeetingMutation from '../mutations/CreateMeetingMutation';
 import localStorage from 'react-native-sync-localstorage';
 
+import { withMappedNavigationProps } from 'react-navigation-props-mapper';
+
+@withMappedNavigationProps()
 export default class Record extends React.Component {
   constructor(props) {
     super(props)
@@ -35,7 +38,7 @@ export default class Record extends React.Component {
 
   stopMeeting() {
     this.setState({ isMeetingStarted: false, meetingStartedAt: null })
-    const environment = this.props.screenProps.relay.environment;
+    const environment = this.props.relay.environment;
     CreateMeetingMutation.commit(this.state.user.id, {
       environment,
       input: {
@@ -87,8 +90,7 @@ export default class Record extends React.Component {
             padding={0}
             color='red'
             backgroundColor='transparent'
-            onPress={() => this.toggleMeeting()}>
-          </Icon.Button>
+            onPress={() => this.toggleMeeting()} />
         </View>
       </SafeAreaView>
     );

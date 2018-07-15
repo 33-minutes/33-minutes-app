@@ -3,7 +3,9 @@ import { Text, View, StyleSheet, TextInput, SafeAreaView, TouchableOpacity, Keyb
 import Logo from '../components/Logo'
 import localStorage from 'react-native-sync-localstorage';
 import CreateUserMutation from '../mutations/CreateUserMutation'
+import { withMappedNavigationProps } from 'react-navigation-props-mapper';
 
+@withMappedNavigationProps()
 export default class SignUp extends Component {
   constructor(props) {
     super(props);
@@ -21,7 +23,7 @@ export default class SignUp extends Component {
   }
 
   onSignUp() {
-    const environment = this.props.screenProps.relay.environment;
+    const environment = this.props.relay.environment;
     CreateUserMutation.commit({
       environment,
       input: {

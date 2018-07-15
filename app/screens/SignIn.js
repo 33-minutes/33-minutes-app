@@ -3,7 +3,9 @@ import { Text, View, StyleSheet, TextInput, SafeAreaView, TouchableOpacity, Keyb
 import Logo from '../components/Logo'
 import LoginMutation from '../mutations/LoginMutation'
 import localStorage from 'react-native-sync-localstorage';
+import { withMappedNavigationProps } from 'react-navigation-props-mapper';
 
+@withMappedNavigationProps()
 export default class SignIn extends Component {
   constructor(props) {
     super(props);
@@ -25,7 +27,7 @@ export default class SignIn extends Component {
   }
 
   onSignIn() {
-    const environment = this.props.screenProps.relay.environment;
+    const environment = this.props.relay.environment;
     LoginMutation.commit({
       environment,
       input: { 

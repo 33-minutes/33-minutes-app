@@ -2,6 +2,7 @@ import SignIn from './screens/SignIn';
 import SignUp from './screens/SignUp';
 import Meeting from './screens/Meeting';
 import Record from './screens/Record';
+import Settings from './screens/Settings';
 import { Tabs } from './screens/Tabs'
 import { createSwitchNavigator, createStackNavigator } from 'react-navigation';
 
@@ -38,6 +39,12 @@ const SignedIn = createStackNavigator({
     screen: Meeting,
     navigationOptions: {
       headerTitle: 'Edit Meeting'
+    }
+  },
+  Settings: {
+    screen: Settings,
+    navigationOptions: {
+      headerTitle: 'Settings'
     }
   }
 });

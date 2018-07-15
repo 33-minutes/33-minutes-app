@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
   },
   meetingTitle: {
     paddingLeft: 5,
+    paddingBottom: 5,
     fontSize: 24,
     fontWeight: '500'
   },
