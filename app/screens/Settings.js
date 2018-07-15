@@ -7,6 +7,7 @@ import { graphql, QueryRenderer } from 'react-relay';
 import { withMappedNavigationProps } from 'react-navigation-props-mapper';
 import SettingsList from 'react-native-settings-list';
 import localStorage from 'react-native-sync-localstorage';
+import Slider from "react-native-slider";
 
 @withMappedNavigationProps()
 class Settings extends React.Component {
@@ -80,10 +81,11 @@ class Settings extends React.Component {
               id
               name
               email
+              weeklyMeetingBudget
             }
           }
         `}
-        render={({error, props, retry}) => {
+        render={({error, props, retry}) => {          
           if (error) {
             return <RetryOnError message={error.message} retry={retry} />
           }
@@ -102,39 +104,61 @@ class Settings extends React.Component {
                 <Text style={styles.headerText}>Account</Text>
               </View>
               <View style={styles.settings}>
-                <SettingsList borderColor='#c8c7cc' defaultItemSize={50}>
-                  <SettingsList.Item 
-                    id='name' 
-                    title='name' 
-                    isEditable={true} 
-                    value={props.user.name}
-                    titleStyle={styles.settingsItemTitle}
-                    onTextChange={(text) => this.setState({ 
-                      user: { 
-                        ...this.state.user,
-                        name: text
-                      },
-                      dirty: true
-                    })}
+                <View>
+                  <SettingsList borderColor='#c8c7cc' defaultItemSize={50}>
+                    <SettingsList.Item 
+                      id='name' 
+                      title='name' 
+                      isEditable={true} 
+                      value={ props.user.name }
+                      titleStyle={styles.settingsItemTitle}
+                      onTextChange={(text) => this.setState({ 
+                        user: { 
+                          ...this.state.user,
+                          name: text
+                        },
+                        dirty: true
+                      })}
+                    />
+                    <SettingsList.Item 
+                      id='e-mail' 
+                      title='e-mail' 
+                      isEditable={true} 
+                      value={ props.user.email }
+                      titleStyle={styles.settingsItemTitle}
+                      onTextChange={(text) => this.setState({ 
+                        user: { 
+                          ...this.state.user,
+                          email: text
+                        },
+                        dirty: true
+                      })}
+                    />
+                  </SettingsList>
+                </View>
+                <View style={styles.header}>
+                  <Text style={styles.headerText}>
+                    Weekly Meeting Budget = { 
+                      this.state.dirty ? this.state.user.weeklyMeetingBudget : props.user.weeklyMeetingBudget 
+                    } hour{ 
+                      (this.state.dirty ? this.state.user.weeklyMeetingBudget : props.user.weeklyMeetingBudget) == 1 ? '' : 's'
+                    } 
+                  </Text>
+                </View>
+                <View style={styles.settingsItem}>
+                  <Slider
+                    minimumValue={0.0}
+                    maximumValue={168}
+                    step={0.5}
+                    trackStyle={styles.sliderTrack}
+                    thumbStyle={styles.sliderThumb}
+                    value={ props.user.weeklyMeetingBudget }
+                    onValueChange={(value) => this.setState({ user: { weeklyMeetingBudget: value }, dirty: true })}
                   />
-                  <SettingsList.Item 
-                    id='e-mail' 
-                    title='e-mail' 
-                    isEditable={true} 
-                    value={props.user.email}
-                    titleStyle={styles.settingsItemTitle}
-                    onTextChange={(text) => this.setState({ 
-                      user: { 
-                        ...this.state.user,
-                        email: text
-                      },
-                      dirty: true
-                    })}
-                  />
-                </SettingsList>
+                </View>            
               </View>
               <View style={styles.actions}>
-                <TouchableOpacity style={this.state.dirty ? styles.button : styles.disabledButton} disabled={! this.state.dirty} onPress={() => this._save()}>
+                <TouchableOpacity style={ this.state.dirty ? styles.button : styles.disabledButton } disabled={! this.state.dirty} onPress={() => this._save()}>
                   <Text style={styles.buttonText}>SAVE</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.whiteButton} onPress={() => this._logout()}>
@@ -159,14 +183,15 @@ const styles = StyleSheet.create({
   header: {
     borderBottomWidth: 1, 
     backgroundColor: '#f7f7f8',
-    borderColor: '#c8c7cc'
+    borderColor: '#c8c7cc',
+    marginTop: 10
   },
   headerText: {
     alignSelf:'center',
     marginTop: 20,
     marginBottom: 10,
     fontWeight: 'bold',
-    fontSize: 16
+    fontSize: 16,
   },
   settings: {
     flexGrow: 1,
@@ -174,6 +199,9 @@ const styles = StyleSheet.create({
   },
   settingsItemTitle: {
     color: 'grey'
+  },
+  settingsItem: {
+    padding: 20
   },
   button: {
     alignSelf: 'stretch',
@@ -227,6 +255,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20
+  },
+  sliderTrack: {
+    height: 2,
+    borderRadius: 1,
+  },
+  sliderThumb: {
+    width: 30,
+    height: 30,
+    borderRadius: 30 / 2,
+    backgroundColor: 'white',
+    shadowColor: 'black',
+    shadowOffset: {
+      width: 0, 
+      height: 2
+    },
+    shadowRadius: 2,
+    shadowOpacity: 0.35,
   }
 });
 
