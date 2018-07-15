@@ -1,8 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import twix from 'twix';
-import { Alert, StyleSheet, View, Text, SafeAreaView, TextInput } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { TouchableOpacity, Alert, StyleSheet, View, Text, SafeAreaView, TextInput } from 'react-native';
 import PropTypes from 'prop-types';
 import DeleteMeetingMutation from '../mutations/DeleteMeetingMutation';
 import UpdateMeetingMutation from '../mutations/UpdateMeetingMutation';
@@ -12,8 +11,10 @@ import { withMappedNavigationProps } from 'react-navigation-props-mapper';
 export default class Meeting extends React.Component {
   constructor(props) {
     super(props)
+
     this.state = {
-      meeting: props.meeting
+      meeting: props.meeting,
+      dirty: false
     }
   }
 
@@ -25,7 +26,7 @@ export default class Meeting extends React.Component {
         id: this.props.meeting.id
       }
     }).then(response => {
-
+      this.props.navigation.goBack();
     }).catch(error => {
       alert(error.message);
     });
@@ -43,13 +44,13 @@ export default class Meeting extends React.Component {
     )
   }
 
-  _updateMeeting() {
+  _save() {
     const environment = this.props.relay.environment;
     UpdateMeetingMutation.commit(this.props.user.id, {
       environment,
       input: this.state.meeting
     }).then(response => {
-
+      this.setState({ dirty: false })
     }).catch(error => {
       alert(error.message);
     });
@@ -69,10 +70,10 @@ export default class Meeting extends React.Component {
               meeting: { 
                 ...this.state.meeting,
                 title: text
-              }
-            })}
-            onSubmitEditing={() => this._updateMeeting()}>{
-          }</TextInput>
+              },
+              dirty: true
+            })
+          } />
 
           <Text style={styles.meetingText}>{
             moment(this.props.meeting.started).format('dddd, MMMM Do, YYYY h:mm A')
@@ -83,14 +84,12 @@ export default class Meeting extends React.Component {
           }</Text>
         </View>
         <View style={styles.actions}>
-          <Icon.Button 
-            name='ios-trash'
-            size={48}
-            padding={0}
-            color='black'
-            backgroundColor='transparent'
-            onPress={() => this._deleteMeetingWithConfirmation()}>
-          </Icon.Button>
+          <TouchableOpacity style={this.state.dirty ? styles.button : styles.disabledButton } disabled={ !this.state.dirty } onPress={() => this._save()}>
+            <Text style={styles.buttonText}>SAVE</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.whiteButton} onPress={() => this._deleteMeetingWithConfirmation()}>
+            <Text style={styles.whiteButtonText}>DELETE</Text>
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
     );
@@ -119,9 +118,43 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   actions: {
+    alignSelf: 'stretch',
     alignItems: 'center',
-    borderTopWidth: 1,
-    paddingTop: 20
+    justifyContent: 'center',
+    padding: 20
+  },
+  button: {
+    alignSelf: 'stretch',
+    backgroundColor: 'black',
+    alignItems: 'center',
+    height: 40,
+    marginBottom: 10
+  },
+  disabledButton: {
+    alignSelf: 'stretch',
+    backgroundColor: 'grey',
+    alignItems: 'center',
+    height: 40,
+    marginBottom: 10
+  },
+  whiteButton: {
+    alignSelf: 'stretch',
+    backgroundColor: 'white',
+    alignItems: 'center',
+    height: 40,
+    marginBottom: 10,
+    borderColor: 'grey',
+    borderWidth: 1
+  },
+  buttonText: {
+    paddingVertical: 10,
+    color: 'white',
+    fontWeight: '700'    
+  },
+  whiteButtonText: {
+    paddingVertical: 10,
+    color: 'black',
+    fontWeight: '700'    
   }
 });
 

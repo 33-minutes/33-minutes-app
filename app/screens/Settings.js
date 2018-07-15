@@ -16,7 +16,8 @@ class Settings extends React.Component {
     this.state = {
       user: {
 
-      }
+      },
+      dirty: false
     }
   }
 
@@ -37,7 +38,7 @@ class Settings extends React.Component {
       environment,
       input: this.state.user
     }).then(response => {
-
+      this.setState({ dirty: false })
     }).catch(error => {
       alert(error.message);
     });
@@ -86,7 +87,8 @@ class Settings extends React.Component {
                       user: { 
                         ...this.state.user,
                         name: text
-                      }
+                      },
+                      dirty: true
                     })}
                   />
                   <SettingsList.Item 
@@ -99,13 +101,14 @@ class Settings extends React.Component {
                       user: { 
                         ...this.state.user,
                         email: text
-                      }
+                      },
+                      dirty: true
                     })}
                   />
                 </SettingsList>
               </View>
               <View style={styles.actions}>
-                <TouchableOpacity style={styles.button} onPress={() => this._save()}>
+                <TouchableOpacity style={this.state.dirty ? styles.button : styles.disabledButton} disabled={! this.state.dirty} onPress={() => this._save()}>
                   <Text style={styles.buttonText}>SAVE</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.whiteButton} onPress={() => this._logout()}>
@@ -146,6 +149,13 @@ const styles = StyleSheet.create({
   button: {
     alignSelf: 'stretch',
     backgroundColor: 'black',
+    alignItems: 'center',
+    height: 40,
+    marginBottom: 10
+  },
+  disabledButton: {
+    alignSelf: 'stretch',
+    backgroundColor: 'grey',
     alignItems: 'center',
     height: 40,
     marginBottom: 10
