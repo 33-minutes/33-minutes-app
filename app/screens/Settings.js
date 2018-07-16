@@ -221,7 +221,13 @@ class Settings extends React.Component {
                     trackStyle={styles.sliderTrack}
                     thumbStyle={styles.sliderThumb}
                     value={ props.user.weeklyMeetingBudget }
-                    onValueChange={(value) => this.setState({ user: { weeklyMeetingBudget: value }, dirty: true })}
+                    onValueChange={(value) => this.setState({ 
+                      user: { 
+                        ...this.state.user,
+                        weeklyMeetingBudget: value 
+                      }, 
+                      dirty: true 
+                    })}
                   />
                 </View>            
               </View>
