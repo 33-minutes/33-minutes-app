@@ -86,7 +86,7 @@ class Settings extends React.Component {
       return false;
     }
 
-    if (this.state.user.password && (this.state.user.password.length == 0 || this.state.user.password != this.state.user.passwordConfirmation)) {
+    if (this.state.user.password != this.state.user.passwordConfirmation) {
       return false;
     }
 
@@ -179,7 +179,7 @@ class Settings extends React.Component {
                       onTextChange={(text) => this.setState({ 
                         user: { 
                           ...this.state.user,
-                          password: text
+                          password: text.length > 0 ? text : null
                         },
                         dirty: true
                       })}
@@ -197,7 +197,7 @@ class Settings extends React.Component {
                       onTextChange={(text) => this.setState({ 
                         user: { 
                           ...this.state.user,
-                          passwordConfirmation: text
+                          passwordConfirmation: text.length > 0 ? text : null 
                         },
                         dirty: true
                       })}
