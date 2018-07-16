@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, TextInput, SafeAreaView, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
-import Logo from '../components/Logo'
+import { Text, View, StyleSheet, TextInput, SafeAreaView, KeyboardAvoidingView } from 'react-native';
+import { Logo, Button } from '../components'
 import localStorage from 'react-native-sync-localstorage';
 import { CreateUserMutation } from '../mutations'
 import { withMappedNavigationProps } from 'react-navigation-props-mapper';
@@ -22,7 +22,7 @@ export default class SignUp extends Component {
     return localStorage.getAllFromLocalStorage();
   }
 
-  onSignUp() {
+  _signup() {
     const environment = this.props.relay.environment;
     CreateUserMutation.commit({
       environment,
@@ -73,10 +73,7 @@ export default class SignUp extends Component {
               ref={(input) => this.passwordInput = input}
               onChangeText={(text) => this.setState({ password: text })}
             />
-            <TouchableOpacity style={styles.button}
-              onPress={() => this.onSignUp()}>
-              <Text style={styles.buttonText}>SIGN-UP</Text>
-            </TouchableOpacity>
+            <Button.Black  onPress={() => this._signup()} text='SIGN UP' />
             <Text 
               style={styles.link}
               onPress={() => this.props.navigation.navigate('SignIn')}>
@@ -118,17 +115,6 @@ const styles = StyleSheet.create({
     height: 40,
     marginBottom: 10,
     padding: 5
-  },
-  button: {
-    alignSelf: 'stretch',
-    backgroundColor: 'black',
-    alignItems: 'center',
-    height: 40
-  },
-  buttonText: {
-    paddingVertical: 10,
-    color: 'white',
-    fontWeight: '700'    
   },
   link: {
     padding: 10,

@@ -1,9 +1,10 @@
 import React from 'react';
 import moment from 'moment';
 import twix from 'twix';
-import { TouchableOpacity, Alert, StyleSheet, View, Text, SafeAreaView, TextInput } from 'react-native';
+import { Alert, StyleSheet, View, Text, SafeAreaView, TextInput } from 'react-native';
 import PropTypes from 'prop-types';
 import { DeleteMeetingMutation, UpdateMeetingMutation } from '../mutations';
+import { Button } from '../components';
 import { withMappedNavigationProps } from 'react-navigation-props-mapper';
 
 @withMappedNavigationProps()
@@ -83,12 +84,8 @@ export default class Meeting extends React.Component {
           }</Text>
         </View>
         <View style={styles.actions}>
-          <TouchableOpacity style={this.state.dirty ? styles.button : styles.disabledButton } disabled={ !this.state.dirty } onPress={() => this._save()}>
-            <Text style={styles.buttonText}>SAVE</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.whiteButton} onPress={() => this._deleteMeetingWithConfirmation()}>
-            <Text style={styles.whiteButtonText}>DELETE</Text>
-          </TouchableOpacity>
+          <Button.Black enabled={ this.state.dirty } onPress={() => this._save()} text='SAVE' />
+          <Button.White onPress={() => this._deleteMeetingWithConfirmation()} text='DELETE' />
         </View>
       </SafeAreaView>
     );
@@ -121,39 +118,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20
-  },
-  button: {
-    alignSelf: 'stretch',
-    backgroundColor: 'black',
-    alignItems: 'center',
-    height: 40,
-    marginBottom: 10
-  },
-  disabledButton: {
-    alignSelf: 'stretch',
-    backgroundColor: 'grey',
-    alignItems: 'center',
-    height: 40,
-    marginBottom: 10
-  },
-  whiteButton: {
-    alignSelf: 'stretch',
-    backgroundColor: 'white',
-    alignItems: 'center',
-    height: 40,
-    marginBottom: 10,
-    borderColor: 'grey',
-    borderWidth: 1
-  },
-  buttonText: {
-    paddingVertical: 10,
-    color: 'white',
-    fontWeight: '700'    
-  },
-  whiteButtonText: {
-    paddingVertical: 10,
-    color: 'black',
-    fontWeight: '700'    
   }
 });
 

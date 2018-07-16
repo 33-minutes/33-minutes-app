@@ -1,8 +1,8 @@
 import React from 'react';
-import { Alert, TouchableOpacity, StyleSheet, View, Text, SafeAreaView } from 'react-native';
+import { Alert, StyleSheet, View, Text, SafeAreaView } from 'react-native';
 import { UpdateUserMutation, LogoutMutation, DeleteUserMutation } from '../mutations'
 import { withNavigation } from 'react-navigation';
-import RetryOnError from '../components/RetryOnError';
+import { Button, RetryOnError } from '../components';
 import { graphql, QueryRenderer } from 'react-relay';
 import { withMappedNavigationProps } from 'react-navigation-props-mapper';
 import SettingsList from 'react-native-settings-list';
@@ -158,15 +158,9 @@ class Settings extends React.Component {
                 </View>            
               </View>
               <View style={styles.actions}>
-                <TouchableOpacity style={ this.state.dirty ? styles.button : styles.disabledButton } disabled={! this.state.dirty} onPress={() => this._save()}>
-                  <Text style={styles.buttonText}>SAVE</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.whiteButton} onPress={() => this._logout()}>
-                  <Text style={styles.whiteButtonText}>LOGOUT</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.redButton} onPress={() => this._deleteWithConfirmation()}>
-                  <Text style={styles.redButtonText}>DELETE ACCOUNT</Text>
-                </TouchableOpacity>
+                <Button.Black enabled={ this.state.dirty } onPress={() => this._save()} text='SAVE' />
+                <Button.White onPress={() => this._logout()} text='LOGOUT' />
+                <Button.Red onPress={() => this._deleteWithConfirmation()} text='DELETE ACCOUNT' />
               </View>
             </SafeAreaView>        
           );
@@ -202,53 +196,6 @@ const styles = StyleSheet.create({
   },
   settingsItem: {
     padding: 20
-  },
-  button: {
-    alignSelf: 'stretch',
-    backgroundColor: 'black',
-    alignItems: 'center',
-    height: 40,
-    marginBottom: 10
-  },
-  disabledButton: {
-    alignSelf: 'stretch',
-    backgroundColor: 'grey',
-    alignItems: 'center',
-    height: 40,
-    marginBottom: 10
-  },
-  whiteButton: {
-    alignSelf: 'stretch',
-    backgroundColor: 'white',
-    alignItems: 'center',
-    height: 40,
-    marginBottom: 10,
-    borderColor: 'grey',
-    borderWidth: 1
-  },
-  redButton: {
-    alignSelf: 'stretch',
-    backgroundColor: 'white',
-    alignItems: 'center',
-    height: 40,
-    marginBottom: 10,
-    borderColor: 'red',
-    borderWidth: 1
-  },
-  buttonText: {
-    paddingVertical: 10,
-    color: 'white',
-    fontWeight: '700'    
-  },
-  whiteButtonText: {
-    paddingVertical: 10,
-    color: 'black',
-    fontWeight: '700'    
-  },
-  redButtonText: {
-    paddingVertical: 10,
-    color: 'red',
-    fontWeight: '700'    
   },
   actions: {
     alignSelf: 'stretch',

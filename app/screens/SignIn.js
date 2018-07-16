@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, TextInput, SafeAreaView, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
-import Logo from '../components/Logo'
+import { Text, View, StyleSheet, TextInput, SafeAreaView, KeyboardAvoidingView } from 'react-native';
 import { LoginMutation } from '../mutations'
+import { Button, Logo } from '../components'
 import localStorage from 'react-native-sync-localstorage';
 import { withMappedNavigationProps } from 'react-navigation-props-mapper';
 
@@ -70,10 +70,7 @@ export default class SignIn extends Component {
               onSubmitEditing={() => this._signIn()}
               ref={(input) => this.passwordInput = input}
             >{ this.state.password }</TextInput>
-            <TouchableOpacity style={styles.button} 
-              onPress={() => this._signIn()}>
-              <Text style={styles.buttonText}>LOGIN</Text>
-            </TouchableOpacity>
+            <Button.Black  onPress={() => this._signIn()} text='LOGIN' />
             <Text 
               style={styles.link}
               onPress={() => this.props.navigation.navigate('SignUp')}>
@@ -115,17 +112,6 @@ const styles = StyleSheet.create({
     height: 40,
     marginBottom: 10,
     padding: 5
-  },
-  button: {
-    alignSelf: 'stretch',
-    backgroundColor: 'black',
-    alignItems: 'center',
-    height: 40
-  },
-  buttonText: {
-    paddingVertical: 10,
-    color: 'white',
-    fontWeight: '700'    
   },
   link: {
     padding: 10,
