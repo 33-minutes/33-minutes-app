@@ -40,6 +40,12 @@ class Settings extends React.Component {
       environment,
       input: this.state.user
     }).then(response => {
+      if (this.state.user.email) {
+        localStorage.setItem('@33minutes:user/email', this.state.user.email);
+      }
+      if (this.state.user.password && this.state.user.passwordConfirmation) {
+        localStorage.setItem('@33minutes:user/password', this.state.user.password);
+      }
       this.setState({ dirty: false })
     }).catch(error => {
       alert(error.message);
@@ -72,12 +78,19 @@ class Settings extends React.Component {
   }
 
   _isValid() {
-    if (this.state.dirty && this.state.user.email) {
-      return this.state.user.email.length > 0 
-        && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.user.email) !== false
-    } else {
-      return this.state.dirty;
+    if (! this.state.dirty) {
+      return false;
     }
+
+    if (this.state.user.email && (this.state.user.email.length == 0 || /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.user.email) === false)) {
+      return false;
+    }
+
+    if (this.state.user.password && (this.state.user.password.length == 0 || this.state.user.password != this.state.user.passwordConfirmation)) {
+      return false;
+    }
+
+    return true;
   }
 
   render() {
@@ -107,6 +120,10 @@ class Settings extends React.Component {
             );
           }
 
+          var weeklyMeetingBudget = this.state.user.weeklyMeetingBudget !== undefined 
+            ? this.state.user.weeklyMeetingBudget 
+            : props.user.weeklyMeetingBudget;
+      
           return (
             <SafeAreaView style={styles.container}>
               <View style={styles.header}>
@@ -119,6 +136,7 @@ class Settings extends React.Component {
                       id='name' 
                       title='name' 
                       isEditable={true} 
+                      hasNavArrow={false}
                       value={ props.user.name }
                       titleStyle={styles.settingsItemTitle}
                       onTextChange={(text) => this.setState({ 
@@ -133,6 +151,11 @@ class Settings extends React.Component {
                       id='e-mail' 
                       title='e-mail' 
                       isEditable={true} 
+                      hasNavArrow={false}
+                      keyboardType='email-address'
+                      textInputProps={{
+                        autoCapitalize: 'none'
+                      }}
                       value={ props.user.email }
                       titleStyle={styles.settingsItemTitle}
                       onTextChange={(text) => this.setState({ 
@@ -143,14 +166,50 @@ class Settings extends React.Component {
                         dirty: true
                       })}
                     />
+                    <SettingsList.Item 
+                      id='password' 
+                      title='password' 
+                      isEditable={true} 
+                      hasNavArrow={false}
+                      titleStyle={styles.settingsItemTitle}
+                      textInputProps={{
+                        autoCapitalize: 'none',
+                        secureTextEntry: true
+                      }}
+                      onTextChange={(text) => this.setState({ 
+                        user: { 
+                          ...this.state.user,
+                          password: text
+                        },
+                        dirty: true
+                      })}
+                    />
+                    <SettingsList.Item 
+                      id='passwordConfirmation' 
+                      title='password confirmation' 
+                      isEditable={true} 
+                      hasNavArrow={false}
+                      titleStyle={styles.settingsItemTitle}
+                      textInputProps={{
+                        autoCapitalize: 'none',
+                        secureTextEntry: true
+                      }}
+                      onTextChange={(text) => this.setState({ 
+                        user: { 
+                          ...this.state.user,
+                          passwordConfirmation: text
+                        },
+                        dirty: true
+                      })}
+                    />
                   </SettingsList>
                 </View>
                 <View style={styles.header}>
                   <Text style={styles.headerText}>
                     Weekly Meeting Budget = { 
-                      this.state.dirty ? this.state.user.weeklyMeetingBudget : props.user.weeklyMeetingBudget 
+                      weeklyMeetingBudget 
                     } hour{ 
-                      (this.state.dirty ? this.state.user.weeklyMeetingBudget : props.user.weeklyMeetingBudget) == 1 ? '' : 's'
+                      weeklyMeetingBudget == 1 ? '' : 's'
                     } 
                   </Text>
                 </View>

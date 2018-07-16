@@ -6138,9 +6138,9 @@ react-native-scripts@1.14.0:
     rimraf "^2.6.1"
     xdl "48.1.4"
 
-react-native-settings-list@^1.8.0:
+"react-native-settings-list@github:dblock/react-native-settings-list#text-input-props":
   version "1.8.0"
-  resolved "https://registry.yarnpkg.com/react-native-settings-list/-/react-native-settings-list-1.8.0.tgz#89089546e84e6fdf3b9e421fe870f0c2626868da"
+  resolved "https://codeload.github.com/dblock/react-native-settings-list/tar.gz/4ed73c65a2b217560543a7ab4e5e94dd7b530f44"
   dependencies:
     create-react-class "^15.6.2"
     prop-types "^15.5.10"
