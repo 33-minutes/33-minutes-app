@@ -39,6 +39,12 @@ export default class SignUp extends Component {
     });
   }
 
+  _isValid() {
+    return this.state.email.length > 0 
+      && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.email) !== false
+      && this.state.password.length > 0;
+  }
+
   render() {
     return (
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
@@ -73,7 +79,7 @@ export default class SignUp extends Component {
               ref={(input) => this.passwordInput = input}
               onChangeText={(text) => this.setState({ password: text })}
             />
-            <Button.Black  onPress={() => this._signup()} text='SIGN UP' />
+            <Button.Black enabled={this._isValid()} onPress={() => this._signup()} text='SIGN UP' />
             <Text 
               style={styles.link}
               onPress={() => this.props.navigation.navigate('SignIn')}>

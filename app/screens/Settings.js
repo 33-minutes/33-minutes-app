@@ -71,6 +71,15 @@ class Settings extends React.Component {
     )
   }
 
+  _isValid() {
+    if (this.state.dirty && this.state.user.email) {
+      return this.state.user.email.length > 0 
+        && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.user.email) !== false
+    } else {
+      return this.state.dirty;
+    }
+  }
+
   render() {
     return (
       <QueryRenderer
@@ -158,7 +167,7 @@ class Settings extends React.Component {
                 </View>            
               </View>
               <View style={styles.actions}>
-                <Button.Black enabled={ this.state.dirty } onPress={() => this._save()} text='SAVE' />
+                <Button.Black enabled={ this._isValid() } onPress={() => this._save()} text='SAVE' />
                 <Button.White onPress={() => this._logout()} text='LOGOUT' />
                 <Button.Red onPress={() => this._deleteWithConfirmation()} text='DELETE ACCOUNT' />
               </View>
