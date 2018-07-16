@@ -40,7 +40,8 @@ const styles = StyleSheet.create({
     paddingLeft: 40,
     paddingRight: 40,
     paddingTop: 20,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    backgroundColor: 'white'
   }
 });
 

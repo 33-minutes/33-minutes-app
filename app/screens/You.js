@@ -10,35 +10,35 @@ import { withMappedNavigationProps } from 'react-navigation-props-mapper';
 export default class You extends Component {
   render() {
     return (
-        <QueryRenderer
-          environment={this.props.relay.environment}
-          query={graphql`
-            query YouQuery {
-              user {
-                id
-                ...Meetings_user
-              }
+      <QueryRenderer
+        environment={this.props.relay.environment}
+        query={graphql`
+          query YouQuery {
+            user {
+              id
+              ...Meetings_user
             }
-          `}
-          render={({error, props, retry}) => {
-            if (error) {
-              return <RetryOnError message={error.message} retry={retry} />
-            }
-            if (! props) {
-              return (
-                <SafeAreaView style={styles.container}>
-                  <Text>Loading ...</Text>
-                </SafeAreaView>
-              );
-            }
+          }
+        `}
+        render={({error, props, retry}) => {
+          if (error) {
+            return <RetryOnError message={error.message} retry={retry} />
+          }
+          if (! props) {
             return (
               <SafeAreaView style={styles.container}>
-                <Meetings user={ props.user } />
-                <Actions />
+                <Text>Loading ...</Text>
               </SafeAreaView>
             );
-          }}>
-        </QueryRenderer>
+          }
+          return (
+            <SafeAreaView style={styles.container}>
+              <Meetings user={ props.user } />
+              <Actions />
+            </SafeAreaView>
+          );
+        }}>
+      </QueryRenderer>
     )
   }
 }
@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: 'white'
   }
 });

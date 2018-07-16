@@ -32,7 +32,7 @@ export const Tabs = createMaterialTopTabNavigator({
     activeTintColor: 'blue',
     inactiveTintColor: 'grey',
     style: {
-      backgroundColor: '#f2f2f2'
+      backgroundColor: 'white',
     },
     indicatorStyle: {
       height: 0

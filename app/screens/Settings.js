@@ -251,8 +251,7 @@ const styles = StyleSheet.create({
   header: {
     borderBottomWidth: 1, 
     backgroundColor: '#f7f7f8',
-    borderColor: '#c8c7cc',
-    marginTop: 10
+    borderColor: '#c8c7cc'
   },
   headerText: {
     alignSelf:'center',
@@ -263,7 +262,7 @@ const styles = StyleSheet.create({
   },
   settings: {
     flexGrow: 1,
-    backgroundColor:'#EFEFF4'
+    backgroundColor: 'white'
   },
   settingsItemTitle: {
     color: 'grey'
@@ -275,7 +274,10 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 20
+    padding: 20,
+    backgroundColor: 'white',
+    borderTopWidth: 1,
+    borderTopColor: '#c8c7cc'
   },
   sliderTrack: {
     height: 2,

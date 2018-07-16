@@ -37,14 +37,17 @@ const styles = StyleSheet.create({
   meeting: {
     alignSelf: 'stretch',
     padding: 20,
-    borderBottomWidth: 2,
-    borderBottomColor: '#ddd'
+    backgroundColor: '#f7f7f8',
+    borderTopWidth: 1,
+    borderTopColor: '#c8c7cc',
+    borderBottomWidth: 1,
+    borderBottomColor: '#c8c7cc'
   },
   meetingTitle: {
     paddingLeft: 5,
     paddingBottom: 5,
-    fontSize: 24,
-    fontWeight: '500'
+    fontSize: 18,
+    fontWeight: 'bold'
   },
   meetingText: {
     paddingLeft: 5

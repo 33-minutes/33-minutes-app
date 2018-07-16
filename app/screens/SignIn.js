@@ -98,7 +98,8 @@ const styles = StyleSheet.create({
   safeContainer: {
     flexGrow: 1,
     alignSelf: 'stretch',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    backgroundColor: 'white'
   },
   formContainer: {
     alignSelf: 'stretch',
