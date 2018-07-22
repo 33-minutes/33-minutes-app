@@ -7,7 +7,11 @@ import PropTypes from 'prop-types';
 import { withNavigation } from 'react-navigation';
 
 class MeetingRow extends React.Component {
-  render() {    
+  render() {
+    const started = moment(this.props.meeting.started);
+    const finished = moment(this.props.meeting.finished);
+    const duration = moment.duration(finished.diff(started));
+
     return (
       <View key={this.props.meeting.id} style={styles.meeting}>
         <TouchableOpacity onPress={() => 
@@ -21,7 +25,7 @@ class MeetingRow extends React.Component {
           }</Text>
 
           <Text style={styles.meetingText}>{
-            moment(this.props.meeting.started).format('dddd, MMMM Do, YYYY h:mm A')
+            started.format('dddd, MMMM Do, YYYY h:mm A')
           }</Text>
 
           <Text style={styles.meetingText}>{
