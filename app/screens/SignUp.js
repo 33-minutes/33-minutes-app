@@ -4,6 +4,7 @@ import { Logo, Button } from '../components'
 import localStorage from 'react-native-sync-localstorage';
 import { CreateUserMutation } from '../mutations'
 import { withMappedNavigationProps } from 'react-navigation-props-mapper';
+import emailValidator from 'email-validator';
 
 @withMappedNavigationProps()
 export default class SignUp extends Component {
@@ -41,7 +42,7 @@ export default class SignUp extends Component {
 
   _isValid() {
     return this.state.email.length > 0 
-      && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.email) !== false
+      && emailValidator.validate(this.state.email)
       && this.state.password.length > 0;
   }
 

@@ -7,7 +7,8 @@ import { graphql, QueryRenderer } from 'react-relay';
 import { withMappedNavigationProps } from 'react-navigation-props-mapper';
 import SettingsList from 'react-native-settings-list';
 import localStorage from 'react-native-sync-localstorage';
-import Slider from "react-native-slider";
+import Slider from 'react-native-slider';
+import emailValidator from 'email-validator';
 
 @withMappedNavigationProps()
 class Settings extends React.Component {
@@ -82,7 +83,7 @@ class Settings extends React.Component {
       return false;
     }
 
-    if (this.state.user.email && (this.state.user.email.length == 0 || /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.user.email) === false)) {
+    if (this.state.user.email && (this.state.user.email.length == 0 || !emailValidator.validate(this.state.user.email))) {
       return false;
     }
 
