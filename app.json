@@ -19,10 +19,6 @@
     "ios": {
       "bundleIdentifier": "io.playplay.33",
       "supportsTablet": true
-    },
-    "android": {
-      "package": "io.playplay.33",
-      "versionCode": "1"
     }
   }
 }
