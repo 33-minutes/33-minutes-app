@@ -41,7 +41,8 @@ export default class SignUp extends Component {
   }
 
   _isValid() {
-    return this.state.email.length > 0 
+    return this.state.email !== undefined
+      && this.state.email.length > 0 
       && emailValidator.validate(this.state.email)
       && this.state.password.length > 0;
   }

@@ -84,7 +84,7 @@ export default class Meeting extends React.Component {
           }</Text>
         </View>
         <View style={styles.actions}>
-          <Button.Black enabled={ this.state.dirty } onPress={() => this._save()} text='SAVE' />
+          <Button.Black enabled={ this.state.dirty || false } onPress={() => this._save()} text='SAVE' />
           <Button.White onPress={() => this._deleteMeetingWithConfirmation()} text='DELETE' />
         </View>
       </SafeAreaView>
