@@ -17,3 +17,5 @@ yarn-debug.log*
 yarn-error.log*
 
 __generated__
+
+.DS_Store

@@ -1,5 +1,28 @@
 {
   "expo": {
-    "sdkVersion": "27.0.0"
+    "name": "33 Minutes",
+    "description": "Track your meeting time.",
+    "slug": "33-minutes",
+    "privacy": "public",
+    "sdkVersion": "27.0.0",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "primaryColor": "#ffffff",
+    "icon": "./assets/icons/app-icon.png",
+    "notification": {
+      "icon": "./assets/icons/notification-icon.png",
+      "color": "#ffffff"      
+    },
+    "loading": {
+      "icon": "./assets/icons/loading-icon.png"
+    },
+    "ios": {
+      "bundleIdentifier": "io.playplay.33",
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "io.playplay.33",
+      "versionCode": "1"
+    }
   }
 }
