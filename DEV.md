@@ -50,3 +50,15 @@ Sometimes you may need to reset or clear the React Native packager's cache. To d
 ```
 yarn start --reset-cache
 ```
+
+## Publishing
+
+### expo.io
+
+Publish to Expo.io with `exp publish`. The app is available with the [expo client](https://expo.io/tools).
+
+### Apple AppStore
+
+Create an .ipa file with `exp build:ios`.
+
+Download it and upload with [Application Loader](https://help.apple.com/itc/apploader/) available from XCode.
