@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { Text, SafeAreaView, StyleSheet } from 'react-native';
-import Meetings from '../components/Meetings'
-import Actions from '../components/Actions';
+import { SafeAreaView, StyleSheet } from 'react-native';
+import { RetryOnError, Loading, Actions, Meetings } from '../components'
 import { graphql, QueryRenderer } from 'react-relay';
-import RetryOnError from '../components/RetryOnError';
 import { withMappedNavigationProps } from 'react-navigation-props-mapper';
 
 @withMappedNavigationProps()
@@ -25,11 +23,7 @@ export default class You extends Component {
             return <RetryOnError message={error.message} retry={retry} />
           }
           if (! props) {
-            return (
-              <SafeAreaView style={styles.container}>
-                <Text>Loading ...</Text>
-              </SafeAreaView>
-            );
+            return <Loading />
           }
           return (
             <SafeAreaView style={styles.container}>

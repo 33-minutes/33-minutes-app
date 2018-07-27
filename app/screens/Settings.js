@@ -2,7 +2,7 @@ import React from 'react';
 import { Alert, StyleSheet, View, Text, SafeAreaView } from 'react-native';
 import { UpdateUserMutation, LogoutMutation, DeleteUserMutation } from '../mutations'
 import { withNavigation } from 'react-navigation';
-import { Button, RetryOnError } from '../components';
+import { Loading, Button, RetryOnError } from '../components';
 import { graphql, QueryRenderer } from 'react-relay';
 import { withMappedNavigationProps } from 'react-navigation-props-mapper';
 import SettingsList from 'react-native-settings-list';
@@ -110,11 +110,7 @@ class Settings extends React.Component {
           }
           
           if (! props) {
-            return (
-              <SafeAreaView style={styles.container}>
-                <Text>Loading ...</Text>
-              </SafeAreaView>
-            );
+            return <Loading />
           }
 
           let weeklyMeetingBudget = this.state.user.weeklyMeetingBudget !== undefined 

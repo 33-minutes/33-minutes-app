@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, SafeAreaView } from 'react-native';
+import { StyleSheet, SafeAreaView } from 'react-native';
 import { withNavigation } from 'react-navigation';
-import { RetryOnError } from '../components';
+import { Loading, RetryOnError } from '../components';
 import { graphql, QueryRenderer } from 'react-relay';
 import { withMappedNavigationProps } from 'react-navigation-props-mapper';
 import WeeklyMeetings from '../components/WeeklyMeetings'
@@ -27,11 +27,7 @@ class Stats extends React.Component {
           }
           
           if (! props) {
-            return (
-              <SafeAreaView style={styles.container}>
-                <Text>Loading ...</Text>
-              </SafeAreaView>
-            );
+            return <Loading />
           }
 
           return (
