@@ -30,7 +30,7 @@ export default class Record extends React.Component {
   }
 
   _start() {
-    this.setState({ isMeetingStarted: true, meetingStartedAt: new Date() })
+    this.setState({ isMeetingStarted: true, meetingStartedAt: moment() })
   }
 
   _stop() {
@@ -40,8 +40,8 @@ export default class Record extends React.Component {
       environment,
       input: {
         title: 'Untitled Meeting',
-        started: this.state.meetingStartedAt,
-        finished: new Date()
+        started: this.state.meetingStartedAt.toDate(),
+        finished: moment().toDate()
       }
     }).then(response => {
       this.props.navigation.navigate('Main')
@@ -73,7 +73,7 @@ export default class Record extends React.Component {
                 countdown={false}
                 interval={1000}
                 formatTimer={(time, ms) =>
-                  moment.duration(ms, "milliseconds").format("h [hours], m [minutes], s [seconds]")
+                  moment.duration(moment().diff(this.state.meetingStartedAt), "milliseconds").format("h [hours], m [minutes], s [seconds]")
                 }
                 >
               </TimerMachine>
