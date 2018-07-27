@@ -9,6 +9,9 @@
     "orientation": "portrait",
     "primaryColor": "#ffffff",
     "icon": "./assets/icons/app-icon.png",
+    "splash": {
+      "image": "./assets/splash/splash.png"
+    },
     "notification": {
       "icon": "./assets/icons/notification-icon.png",
       "color": "#ffffff"      
