@@ -3,7 +3,6 @@ import { ScrollView, FlatList, Text, StyleSheet } from 'react-native';
 import WeeklyMeetingRow from './WeeklyMeetingRow';
 import { createPaginationContainer, graphql } from 'react-relay';
 import PropTypes from 'prop-types';
-import uuid from 'uuid/v4';
 import { withNavigation } from 'react-navigation';
 
 class WeeklyMeetings extends React.Component {
@@ -26,8 +25,17 @@ class WeeklyMeetings extends React.Component {
     );
   }
 
+  _weeklyMeetings() {
+    let weeklyMeetings = this.props.user.weeklyMeetings;
+    if (weeklyMeetings && weeklyMeetings.edges) {
+      return weeklyMeetings.edges.filter((weeklyMeetings) => weeklyMeetings.node);
+    } else {
+      return [];
+    }
+  }
+
   render() {
-    let weeklyMeetings = this.props.user.weeklyMeetings.edges.filter((weeklyMeetings) => weeklyMeetings.node);
+    let weeklyMeetings = this._weeklyMeetings();
     if (weeklyMeetings.length > 0) {
       return <FlatList
         style={styles.weeklyMeetings} 
@@ -39,7 +47,7 @@ class WeeklyMeetings extends React.Component {
     } else {
       return(
         <ScrollView>
-          <Text style={styles.placeholder} key={0}>No weeklyMeetings.</Text>
+          <Text style={styles.placeholder} key={0}>Whoops, this was unexpected.</Text>
         </ScrollView>
       )
     }

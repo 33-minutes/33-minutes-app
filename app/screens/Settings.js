@@ -117,7 +117,7 @@ class Settings extends React.Component {
             );
           }
 
-          var weeklyMeetingBudget = this.state.user.weeklyMeetingBudget !== undefined 
+          let weeklyMeetingBudget = this.state.user.weeklyMeetingBudget !== undefined 
             ? this.state.user.weeklyMeetingBudget 
             : props.user.weeklyMeetingBudget;
       
