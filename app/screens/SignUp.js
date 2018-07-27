@@ -84,6 +84,7 @@ export default class SignUp extends Component {
               onPress={() => this.props.navigation.navigate('SignIn')}>
               Already have an account?
             </Text>
+            <View style={styles.bumper} />
           </View>
         </SafeAreaView>
       </KeyboardAvoidingView>
@@ -126,5 +127,8 @@ const styles = StyleSheet.create({
     padding: 10,
     fontWeight: '500',
     textDecorationLine: 'underline'
+  },
+  bumper: {
+    height: 75
   }
 });
