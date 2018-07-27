@@ -1,7 +1,8 @@
 import { Environment, Network, RecordSource, Store } from 'relay-runtime';
+import { SERVER_URL } from 'react-native-dotenv';
 
 function fetchQuery(operation, variables) {
-  return fetch('http://localhost:3000/graphql', {
+  return fetch(SERVER_URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

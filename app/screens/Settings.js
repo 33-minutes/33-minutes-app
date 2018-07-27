@@ -12,15 +12,11 @@ import emailValidator from 'email-validator';
 
 @withMappedNavigationProps()
 class Settings extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      user: {
-
-      },
-      dirty: false
-    }
+  state = {
+    user: {
+      
+    },
+    dirty: false
   }
 
   _logout() {

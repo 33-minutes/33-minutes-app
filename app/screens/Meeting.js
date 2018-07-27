@@ -9,13 +9,14 @@ import { withMappedNavigationProps } from 'react-navigation-props-mapper';
 
 @withMappedNavigationProps()
 export default class Meeting extends React.Component {
+  state = {
+    dirty: false
+  }
+
   constructor(props) {
     super(props)
 
-    this.state = {
-      meeting: props.meeting,
-      dirty: false
-    }
+    this.state.meeting = props.meeting;
   }
 
   _deleteMeeting() {
@@ -84,7 +85,7 @@ export default class Meeting extends React.Component {
           }</Text>
         </View>
         <View style={styles.actions}>
-          <Button.Black enabled={ this.state.dirty || false } onPress={() => this._save()} text='SAVE' />
+          <Button.Black enabled={ this.state.dirty } onPress={() => this._save()} text='SAVE' />
           <Button.White onPress={() => this._deleteMeetingWithConfirmation()} text='DELETE' />
         </View>
       </SafeAreaView>

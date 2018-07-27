@@ -8,16 +8,12 @@ import emailValidator from 'email-validator';
 
 @withMappedNavigationProps()
 export default class SignUp extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = { 
-      name: '',
-      email: '',
-      password: '',
-      message: ''
-    };
-  }
+  state = { 
+    name: '',
+    email: '',
+    password: '',
+    message: ''
+  };
 
   componentWillMount() {
     return localStorage.getAllFromLocalStorage();
@@ -44,6 +40,7 @@ export default class SignUp extends Component {
     return this.state.email !== undefined
       && this.state.email.length > 0 
       && emailValidator.validate(this.state.email)
+      && this.state.password !== undefined
       && this.state.password.length > 0;
   }
 

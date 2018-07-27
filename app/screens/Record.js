@@ -16,12 +16,9 @@ import { withMappedNavigationProps } from 'react-navigation-props-mapper';
 
 @withMappedNavigationProps()
 export default class Record extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      isMeetingStarted: false,
-      meetingStartedAt: null
-    }
+  state = {
+    isMeetingStarted: false,
+    meetingStartedAt: null
   }
 
   componentWillMount() {
