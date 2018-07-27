@@ -17,6 +17,7 @@ class Actions extends Component {
           name='ios-radio-button-on'
           size={64}
           color='red'
+          paddingLeft={16}
           backgroundColor='transparent'
           onPress={() => this.props.navigation.navigate('Record')} />
         <Icon.Button

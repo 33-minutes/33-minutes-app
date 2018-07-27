@@ -85,6 +85,7 @@ export default class Record extends React.Component {
             name={ this.state.isMeetingStarted ? 'ios-radio-button-off' : 'ios-radio-button-on' }
             size={64}
             padding={0}
+            paddingLeft={16}
             color='red'
             backgroundColor='transparent'
             onPress={() => this._toggle()} />
