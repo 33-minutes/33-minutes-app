@@ -5,7 +5,7 @@
     "slug": "33-minutes",
     "privacy": "public",
     "sdkVersion": "28.0.0",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "orientation": "portrait",
     "primaryColor": "#ffffff",
     "icon": "./assets/icons/app-icon.png",
@@ -21,7 +21,10 @@
     },
     "ios": {
       "bundleIdentifier": "io.playplay.33",
-      "supportsTablet": true
+      "supportsTablet": true,
+      "config": {
+        "usesNonExemptEncryption": false
+      }
     }
   }
 }
