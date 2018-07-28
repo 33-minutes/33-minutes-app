@@ -6045,13 +6045,6 @@ react-native-gesture-handler@1.0.4:
     invariant "^2.2.2"
     prop-types "^15.5.10"
 
-"react-native-hideable-view@github:osagie/react-native-hideable-view":
-  version "1.0.3"
-  resolved "https://codeload.github.com/osagie/react-native-hideable-view/tar.gz/6b5d3274b425ee99769ae1913f4fa3469d6f368d"
-  dependencies:
-    react ">=15.2.0"
-    react-native ">=0.29.0"
-
 react-native-maps@0.21.0:
   version "0.21.0"
   resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.21.0.tgz#005f58e93d7623ad59667e8002101970ddf235c2"
@@ -6146,7 +6139,7 @@ react-native-vector-icons@4.5.0:
     prop-types "^15.5.10"
     yargs "^8.0.2"
 
-react-native@>=0.29.0, "react-native@https://github.com/expo/react-native/archive/sdk-28.0.0.tar.gz":
+"react-native@https://github.com/expo/react-native/archive/sdk-28.0.0.tar.gz":
   version "0.55.4"
   resolved "https://github.com/expo/react-native/archive/sdk-28.0.0.tar.gz#114260fec7ef45151149e8f285db9dc3046f4be5"
   dependencies:
@@ -6288,10 +6281,6 @@ react-test-renderer@16.4.1, react-test-renderer@^16.3.1:
     prop-types "^15.6.0"
     react-is "^16.4.1"
 
-react-timer-machine@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/react-timer-machine/-/react-timer-machine-1.0.1.tgz#d0866babefde3d9844a416c2f32cde37ad1abe98"
-
 react-timer-mixin@^0.13.2:
   version "0.13.3"
   resolved "https://registry.yarnpkg.com/react-timer-mixin/-/react-timer-mixin-0.13.3.tgz#0da8b9f807ec07dc3e854d082c737c65605b3d22"
@@ -6303,7 +6292,7 @@ react-transform-hmr@^1.0.4:
     global "^4.3.0"
     react-proxy "^1.1.7"
 
-react@>=15.2.0, react@^16.0.0, react@^16.4.1:
+react@^16.0.0, react@^16.4.1:
   version "16.4.1"
   resolved "https://registry.yarnpkg.com/react/-/react-16.4.1.tgz#de51ba5764b5dbcd1f9079037b862bd26b82fe32"
   dependencies:
