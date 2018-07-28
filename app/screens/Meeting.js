@@ -52,6 +52,7 @@ export default class Meeting extends React.Component {
       input: this.state.meeting
     }).then(response => {
       this.setState({ dirty: false })
+      this.props.navigation.goBack();
     }).catch(error => {
       alert(error.message);
     });

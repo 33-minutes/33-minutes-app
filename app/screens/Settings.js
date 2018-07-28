@@ -44,6 +44,7 @@ class Settings extends React.Component {
         localStorage.setItem('@33minutes:user/password', this.state.user.password);
       }
       this.setState({ dirty: false })
+      this.props.navigation.goBack();
     }).catch(error => {
       alert(error.message);
     });
