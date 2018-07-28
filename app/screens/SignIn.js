@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, TextInput, SafeAreaView, KeyboardAvoidingView } from 'react-native';
+import { StatusBar, Text, View, StyleSheet, TextInput, SafeAreaView, KeyboardAvoidingView } from 'react-native';
 import { LoginMutation } from '../mutations'
 import { Button, Logo } from '../components'
 import localStorage from 'react-native-sync-localstorage';
@@ -52,6 +52,7 @@ export default class SignIn extends Component {
   render() {
     return (
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
+        <StatusBar barStyle="dark-content" />
         <SafeAreaView style={styles.safeContainer}>
           <Logo />
           <View style={styles.formContainer}>
