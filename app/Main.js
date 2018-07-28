@@ -21,7 +21,7 @@ const SignedIn = createStackNavigator({
   Main: {
     screen: Tabs,
     navigationOptions: {
-      headerTitle: '33 Minutes',
+      headerTitle: 'Feed',
       headerBackTitle: 'Back'
     }
   },
