@@ -26,7 +26,7 @@ function commit(userId, { environment, input }) {
       type: 'NODE_DELETE',
       parentID: userId,
       deletedIDFieldName: 'deletedId',
-      connectionName: 'Meetings_meetings'
+      connectionName: 'MeetingsList_meetings'
     }]
   })
 }

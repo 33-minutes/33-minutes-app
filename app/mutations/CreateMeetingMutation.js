@@ -36,7 +36,7 @@ function commit(userId, { environment, input }) {
       type: 'RANGE_ADD',
       parentID: userId,
       connectionInfo: [{
-        key: 'Meetings_meetings',
+        key: 'MeetingsList_meetings',
         rangeBehavior: 'prepend',
       }],
       edgeName: 'meetingEdge'

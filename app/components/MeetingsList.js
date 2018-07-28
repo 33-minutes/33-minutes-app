@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import uuid from 'uuid/v4';
 import { withNavigation } from 'react-navigation';
 
-class Meetings extends React.Component {
+class MeetingsList extends React.Component {
   _renderMeeting(val) {
     if (val.item.node) {
       return <MeetingRow key={val.item.node.__id} meeting={val.item.node} user={this.props.user} />
@@ -55,15 +55,15 @@ const styles = StyleSheet.create({
   }
 });
 
-Meetings.propTypes = {
+MeetingsList.propTypes = {
   user: PropTypes.object
 };
 
 export default withNavigation(createPaginationContainer(
-  Meetings, 
+  MeetingsList, 
   {
     user: graphql`
-      fragment Meetings_user on User
+      fragment MeetingsList_user on User
       @argumentDefinitions(
         count: { type: "Int", defaultValue: 10 }
         cursor: { type: "String" }
@@ -72,7 +72,7 @@ export default withNavigation(createPaginationContainer(
         meetings(
           first: $count
           after: $cursor
-        ) @connection(key: "Meetings_meetings", filters: []) {
+        ) @connection(key: "MeetingsList_meetings", filters: []) {
           edges {
             node {
               id
@@ -104,12 +104,12 @@ export default withNavigation(createPaginationContainer(
       };
     },
     query: graphql`
-      query MeetingsPaginationQuery(
+      query MeetingsListPaginationQuery(
         $count: Int!
         $cursor: String
       ) {
         user {
-          ...Meetings_user @arguments(count: $count, cursor: $cursor)
+          ...MeetingsList_user @arguments(count: $count, cursor: $cursor)
         }
       }
     `

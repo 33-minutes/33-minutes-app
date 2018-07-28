@@ -5,6 +5,8 @@ import localStorage from 'react-native-sync-localstorage';
 import { CreateUserMutation } from '../mutations'
 import { withMappedNavigationProps } from 'react-navigation-props-mapper';
 import emailValidator from 'email-validator';
+import CheckBox from 'react-native-check-box';
+import { WebBrowser } from 'expo';
 
 @withMappedNavigationProps()
 export default class SignUp extends Component {
@@ -12,6 +14,7 @@ export default class SignUp extends Component {
     name: '',
     email: '',
     password: '',
+    acceptedTermsAndConditions: false,
     message: ''
   };
 
@@ -36,8 +39,14 @@ export default class SignUp extends Component {
     });
   }
 
+  _terms = async () => {
+    let result = await WebBrowser.openBrowserAsync('https://33.playplay.io/terms');
+    this.setState({ termsSeen: true });
+  };
+
   _isValid() {
-    return this.state.email !== undefined
+    return this.state.acceptedTermsAndConditions === true
+      && this.state.email !== undefined
       && this.state.email.length > 0 
       && emailValidator.validate(this.state.email)
       && this.state.password !== undefined
@@ -78,6 +87,20 @@ export default class SignUp extends Component {
               ref={(input) => this.passwordInput = input}
               onChangeText={(text) => this.setState({ password: text })}
             />
+            <CheckBox
+              style={styles.termsAndConditions}
+              isChecked={this.state.acceptedTermsAndConditions}
+              onClick={() => this.setState({ acceptedTermsAndConditions: !this.state.acceptedTermsAndConditions })}
+              rightTextView={
+                <Text>
+                  &nbsp;accept&nbsp;
+                  <Text 
+                    style={styles.link}
+                    onPress={() => this._terms()}>terms and conditions
+                  </Text>
+                </Text>
+              }
+            />              
             <Button.Black enabled={this._isValid()} onPress={() => this._signup()} text='SIGN UP' />
             <Text 
               style={styles.link}
@@ -127,6 +150,9 @@ const styles = StyleSheet.create({
     padding: 10,
     fontWeight: '500',
     textDecorationLine: 'underline'
+  },
+  termsAndConditions: {
+    paddingBottom: 10
   },
   bumper: {
     height: 75

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
-import { RetryOnError, Loading, Actions, Meetings } from '../components'
+import { RetryOnError, Loading, Actions, MeetingsList } from '../components'
 import { graphql, QueryRenderer } from 'react-relay';
 import { withMappedNavigationProps } from 'react-navigation-props-mapper';
 
@@ -14,7 +14,7 @@ export default class You extends Component {
           query YouQuery {
             user {
               id
-              ...Meetings_user
+              ...MeetingsList_user
             }
           }
         `}
@@ -27,7 +27,7 @@ export default class You extends Component {
           }
           return (
             <SafeAreaView style={styles.container}>
-              <Meetings user={ props.user } />
+              <MeetingsList user={ props.user } />
               <Actions />
             </SafeAreaView>
           );

@@ -1,9 +1,4 @@
-import SignIn from './screens/SignIn';
-import SignUp from './screens/SignUp';
-import Meeting from './screens/Meeting';
-import Record from './screens/Record';
-import Settings from './screens/Settings';
-import Stats from './screens/Stats';
+import { Stats, Settings, Record, Meeting, SignUp, SignIn } from './screens';
 import { Tabs } from './screens/Tabs'
 import { createSwitchNavigator, createStackNavigator } from 'react-navigation';
 

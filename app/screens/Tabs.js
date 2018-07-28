@@ -1,9 +1,7 @@
 import React from 'react';
 import { createMaterialTopTabNavigator } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
-
-import Following from '../screens/Following';
-import You from '../screens/You';
+import { Following, You } from '../screens';
 
 export const Tabs = createMaterialTopTabNavigator({
   You: {
