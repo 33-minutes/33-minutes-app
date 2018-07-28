@@ -179,6 +179,7 @@ const styles = StyleSheet.create({
   actions: {
     alignItems: 'center',
     borderTopWidth: 1,
-    paddingTop: 20
+    paddingTop: 20,
+    paddingBottom: 10
   }
 });
