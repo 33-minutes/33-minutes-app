@@ -11,7 +11,7 @@ import { CreateMeetingMutation } from '../mutations';
 import localStorage from 'react-native-sync-localstorage';
 
 import { withMappedNavigationProps } from 'react-navigation-props-mapper';
-import { RetryOnError } from '../components';
+import { RetryOnError, CurrentLocation } from '../components';
 
 @withMappedNavigationProps()
 export default class Record extends React.Component {
@@ -21,7 +21,8 @@ export default class Record extends React.Component {
     meetingStartedAt: null,
     meetingFinishedAt: null,
     error: null,
-    timer: null
+    timer: null,
+    location: null
   }
 
   static navigationOptions = {
@@ -94,13 +95,17 @@ export default class Record extends React.Component {
   }
 
   _save() {
-    const environment = this.props.relay.environment;
+    const environment = this.props.relay.environment;    
     CreateMeetingMutation.commit(this.state.user.id, {
       environment,
       input: {
         title: 'Untitled Meeting',
         started: this.state.meetingStartedAt.toDate(),
-        finished: this.state.meetingFinishedAt.toDate()
+        finished: this.state.meetingFinishedAt.toDate(),
+        location: [
+          this.state.location.latitude,
+          this.state.location.longitude
+        ]
       }
     }).then(response => {
       this.props.navigation.navigate('Main')
@@ -121,24 +126,30 @@ export default class Record extends React.Component {
     if (this.state.error) {
       return <RetryOnError message={this.state.error} retry={this._retrySave} />
     } else if (this.state.isMeetingRecording) {
-      return <Text style={styles.timerText}>Saving ...</Text>
+      return 
+        <View style={styles.infoContainer}>
+          <Text style={styles.timerText}>Saving ...</Text>
+        </View>
     } else if (this.state.isMeetingStarted) {
       return(
-        <Text style={styles.timerText}>
-          { moment.duration(this.state.elapsedTime, "milliseconds").format("h [hours], m [minutes], s [seconds]") }
-        </Text>
+        <View style={styles.infoContainer}>
+          <Text style={styles.timerText}>
+            { moment.duration(this.state.elapsedTime, "milliseconds").format("h [hours], m [minutes], s [seconds]") }
+          </Text>
+        </View>
         )
-    } else {
-      return <Text style={styles.timerText}>GPS location coming soon.</Text>
     }
+  }
+
+  _changeLocation(location) {
+    this.setState({ location: location })
   }
 
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <ScrollView contentContainerStyle={styles.infoContainer}>
-          { this._timerText() }
-        </ScrollView>
+        <CurrentLocation onChangeLocation={(location) => this._changeLocation(location)} />
+        { this._timerText() }
         <View style={styles.actions}>
           <Icon.Button 
             name={ this.state.isMeetingStarted || this.state.error ? 'ios-radio-button-off' : 'ios-radio-button-on' }
@@ -164,9 +175,9 @@ const styles = StyleSheet.create({
     flex: 1
   },
   infoContainer: {
-    flexGrow: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    height: 100
   },
   timerText: {
     fontSize: 16

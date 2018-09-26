@@ -2,6 +2,9 @@ scalar Date
 
 scalar DateTime
 
+# Geo coordinate, latitude followed by longitude.
+scalar GeoCoordinates
+
 # A recorded meeting.
 type Meeting {
   # The time at which this meeting ended.
@@ -9,6 +12,9 @@ type Meeting {
 
   # Meeting ID.
   id: ID
+
+  # Geo-location of meeting.
+  location: GeoCoordinates
 
   # The time at which this meeting started.
   started: DateTime
@@ -162,6 +168,7 @@ input createMeetingInput {
   # A unique identifier for the client performing the mutation.
   clientMutationId: String
   finished: DateTime!
+  location: GeoCoordinates
   started: DateTime!
   title: String
 }
@@ -252,6 +259,7 @@ input updateMeetingInput {
   clientMutationId: String
   finished: DateTime
   id: ID!
+  location: GeoCoordinates
   started: DateTime
   title: String
 }

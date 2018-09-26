@@ -5,3 +5,5 @@ export { default as MeetingRow } from "./MeetingRow";
 export { default as MeetingsList } from "./MeetingsList";
 export { default as RetryOnError } from "./RetryOnError";
 export { default as Loading } from "./Loading";
+export { default as LocationMap } from "./LocationMap";
+export { default as CurrentLocation } from "./CurrentLocation";

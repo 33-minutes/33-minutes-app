@@ -4,7 +4,7 @@ import twix from 'twix';
 import { Alert, StyleSheet, View, Text, SafeAreaView, TextInput } from 'react-native';
 import PropTypes from 'prop-types';
 import { DeleteMeetingMutation, UpdateMeetingMutation } from '../mutations';
-import { Button } from '../components';
+import { Button, LocationMap } from '../components';
 import { withMappedNavigationProps } from 'react-navigation-props-mapper';
 
 @withMappedNavigationProps()
@@ -84,6 +84,11 @@ export default class Meeting extends React.Component {
           <Text style={styles.meetingText}>{
             moment(this.props.meeting.finished).twix(this.props.meeting.started).humanizeLength()
           }</Text>
+
+          <LocationMap style={ styles.map } location={ {
+            latitude: this.state.meeting.location[0], 
+            longitude: this.state.meeting.location[1]
+           } } />
         </View>
         <View style={styles.actions}>
           <Button.Black enabled={ this.state.dirty } onPress={() => this._save()} text='SAVE' />
@@ -114,6 +119,9 @@ const styles = StyleSheet.create({
   },
   deleteMeetingText: {
     color: 'white'
+  },
+  map: {
+    marginTop: 10
   },
   actions: {
     alignSelf: 'stretch',

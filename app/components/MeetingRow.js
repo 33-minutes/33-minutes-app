@@ -69,5 +69,6 @@ export default withNavigation(createFragmentContainer(MeetingRow, graphql`
     title
     started
     finished
+    location
   }
 `))

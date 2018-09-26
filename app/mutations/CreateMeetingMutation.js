@@ -11,6 +11,7 @@ const mutation = graphql`
         title
         started
         finished
+        location
       },
       meetingEdge {
         node {
