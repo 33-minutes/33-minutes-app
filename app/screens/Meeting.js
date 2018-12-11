@@ -85,10 +85,10 @@ export default class Meeting extends React.Component {
             moment(this.props.meeting.finished).twix(this.props.meeting.started).humanizeLength()
           }</Text>
 
-          <LocationMap style={ styles.map } location={ {
+          <LocationMap style={ styles.map } location={{
             latitude: this.state.meeting.location[0], 
             longitude: this.state.meeting.location[1]
-           } } />
+           }} readOnly={true} />
         </View>
         <View style={styles.actions}>
           <Button.Black enabled={ this.state.dirty } onPress={() => this._save()} text='SAVE' />

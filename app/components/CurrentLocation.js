@@ -42,7 +42,7 @@ export default class CurrentLocation extends Component {
     if (this.state.errorMessage) {
       return <Text style={styles.text}>{ this.state.errorMessage }</Text>
     } else if (this.state.location) {
-      return <LocationMap location={ this.state.location } />
+      return <LocationMap location={this.state.location} readOnly={false} onChangeLocation={this.props.onChangeLocation} />
     } else {
       return <Text style={styles.text}>Loading ...</Text>
     }

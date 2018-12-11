@@ -51,6 +51,10 @@ Sometimes you may need to reset or clear the React Native packager's cache. To d
 yarn start --reset-cache
 ```
 
+### `yarn relay --watch`
+
+You will need to be running `yarn relay --watch` to keep Relay GraphQL code auto-regenerating.
+
 ## Publishing
 
 ### expo.io
