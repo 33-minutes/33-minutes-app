@@ -134,7 +134,7 @@ export default class Record extends React.Component {
       return(
         <View style={styles.infoContainer}>
           <Text style={styles.timerText}>
-            { moment.duration(this.state.elapsedTime, "milliseconds").format("h [hours], m [minutes], s [seconds]") }
+            { moment.duration(this.state.elapsedTime, "milliseconds").format("hh:mm:ss", { trim: false }) }
           </Text>
         </View>
         )
@@ -172,15 +172,19 @@ export default class Record extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: 'white'
   },
   infoContainer: {
+    borderTopWidth: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'white',
     height: 100
   },
   timerText: {
-    fontSize: 16
+    fontSize: 64,
+    fontWeight: 'bold',
   },
   link: {
     padding: 10,
@@ -191,6 +195,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderTopWidth: 1,
     paddingTop: 20,
-    paddingBottom: 10
+    paddingBottom: 10,
+    backgroundColor: 'white'
   }
 });
