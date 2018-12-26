@@ -7,3 +7,4 @@ export { default as SignIn } from "./SignIn";
 export { default as SignUp } from "./SignUp";
 export { default as Stats } from "./Stats";
 export { default as You } from "./You";
+export { default as Create } from "./Create";

@@ -7,3 +7,4 @@ export { default as RetryOnError } from "./RetryOnError";
 export { default as Loading } from "./Loading";
 export { default as LocationMap } from "./LocationMap";
 export { default as CurrentLocation } from "./CurrentLocation";
+export { default as Header } from "./Header";

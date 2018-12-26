@@ -17,7 +17,6 @@ class MeetingRow extends React.Component {
   render() {
     const started = moment(this.props.meeting.started);
     const finished = moment(this.props.meeting.finished);
-    const duration = moment.duration(finished.diff(started));
 
     return (
       <View key={this.props.meeting.id} style={styles.meeting}>
@@ -31,7 +30,7 @@ class MeetingRow extends React.Component {
           }</Text>
 
           <Text style={styles.meetingText}>{
-            moment(this.props.meeting.finished).twix(this.props.meeting.started).humanizeLength()
+            finished.twix(started).humanizeLength()
           }</Text>
         </TouchableOpacity>
       </View>
