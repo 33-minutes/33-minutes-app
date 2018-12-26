@@ -1,3 +1,4 @@
+import React from 'react';
 import { Stats, Settings, Record, Meeting, SignUp, SignIn } from './screens';
 import { Tabs } from './screens/Tabs'
 import { createSwitchNavigator, createStackNavigator } from 'react-navigation';
@@ -28,7 +29,7 @@ const SignedIn = createStackNavigator({
   Record: {
     screen: Record,
     navigationOptions: {
-      headerTitle: 'Record Time'
+      headerTitle: 'Record Meeting'
     }
   },
   Meeting: {

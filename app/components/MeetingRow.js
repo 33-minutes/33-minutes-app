@@ -7,6 +7,13 @@ import PropTypes from 'prop-types';
 import { withNavigation } from 'react-navigation';
 
 class MeetingRow extends React.Component {
+  _navigate() {
+    this.props.navigation.navigate('Meeting', { 
+      meeting: this.props.meeting,
+      user: this.props.user
+    })
+  }
+
   render() {
     const started = moment(this.props.meeting.started);
     const finished = moment(this.props.meeting.finished);
@@ -14,12 +21,7 @@ class MeetingRow extends React.Component {
 
     return (
       <View key={this.props.meeting.id} style={styles.meeting}>
-        <TouchableOpacity onPress={() => 
-          this.props.navigation.navigate('Meeting', { 
-            meeting: this.props.meeting,
-            user: this.props.user
-          })}>
-        }>
+        <TouchableOpacity onPress={() => this._navigate()}>
           <Text style={styles.meetingTitle}>{
             this.props.meeting.title
           }</Text>

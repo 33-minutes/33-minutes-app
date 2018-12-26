@@ -23,7 +23,7 @@ export default class App extends Component {
       }
     }
 
-    const Layout = createRootNavigator(signedIn);
+    const Layout = createRootNavigator(signedIn, screenProps);
 
     return (
       <Layout screenProps={ screenProps } />

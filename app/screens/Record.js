@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Alert, StyleSheet, View, Text, SafeAreaView, ScrollView } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -14,7 +14,7 @@ import { withMappedNavigationProps } from 'react-navigation-props-mapper';
 import { RetryOnError, CurrentLocation } from '../components';
 
 @withMappedNavigationProps()
-export default class Record extends React.Component {
+export default class Record extends Component {
   state = {
     isMeetingStarted: false,
     isMeetingRecording: false,
